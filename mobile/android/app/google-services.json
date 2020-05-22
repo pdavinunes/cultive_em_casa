@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "280525911485",
+    "firebase_url": "https://cultiveemcasa.firebaseio.com",
+    "project_id": "cultiveemcasa",
+    "storage_bucket": "cultiveemcasa.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:280525911485:android:0f1a279e0a87e61c17ced4",
+        "android_client_info": {
+          "package_name": "br.com.cultive_em_casa_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "280525911485-um2b4r5gp8ihjfpobso2c26gi5mb0173.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDSCppRlFmmuCbX2xFRbHfyjwAmyxy7BIs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "280525911485-um2b4r5gp8ihjfpobso2c26gi5mb0173.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
