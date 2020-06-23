@@ -8,7 +8,9 @@ const routes = express.Router();
 const upload = multer(multerConfig);
 
 const userController = new UserController();
+
 routes.get('/users', userController.index)
+routes.get('/users/:id', userController.show)
 routes.post('/users', upload.single('image'), userController.store)
 
 export default routes;

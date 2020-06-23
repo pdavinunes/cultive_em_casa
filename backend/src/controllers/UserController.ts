@@ -8,6 +8,13 @@ class UserController {
         return res.json(users);
     }
 
+    async show(req: Request, res: Response) {
+        const {id} = req.params;
+        const user = await knex('users').select('*').where('id','=', id );
+        res.json({user});
+
+    }
+
     async store(req: Request, res: Response) {
         const {
             name,
@@ -38,6 +45,7 @@ class UserController {
         });
     }
     
+
 }
 
 export default UserController;
