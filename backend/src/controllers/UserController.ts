@@ -7,8 +7,9 @@ import User from '../models/User';
 
 const service = new UserService();
 
-interface Resp {
-    status: any
+interface Result {
+    status: any,
+    message: string
 }
 class UserController {
 
@@ -31,13 +32,15 @@ class UserController {
         const {name, username, password, email} = req.body;
         const user = new User(name, email, username, password, req.file.filename);
 
-        const resp = await service.store(user) as Resp;
+        const resultStore = await service.store(user) as Result;
         
-        return res.status(resp.status).json({...resp});
+        return res.status(resultStore.status).json({...resultStore});
     }
     
     async auth(req: Request, res: Response) {
-
+        const {username, password} = req.body;
+        const resultAuth = await service.auth(username, password) as Result;
+        return res.status(resultAuth.status).json({...resultAuth});
     }
 }
 

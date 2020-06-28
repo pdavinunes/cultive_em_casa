@@ -1,6 +1,11 @@
 import {Response} from 'express';
 import knex from '../database/connection';
 import User from '../models/User';
+const bcrypt = require('bcrypt');
+
+interface UserPass {
+    password: string
+}
 
 class UserService {
     async index() {
@@ -12,7 +17,8 @@ class UserService {
     }
 
     async store(user: User) : Promise<object> {
-        if(await this._checkIfUsernameNotExists(user.username)) {
+        const checkUser = await this._findUserByUsername(user.username); 
+        if(checkUser === undefined) {
             const trx = await knex.transaction();
             
             const insertedIds = await trx('users')
@@ -30,9 +36,28 @@ class UserService {
 
     }
 
-    private async _checkIfUsernameNotExists(username: string) : Promise<boolean> {
-        const user = await knex('users').select('*').where('username','=',username);
-        return user.length === 0;
+    private async _findUserByUsername(username: string) : Promise<object> {
+        const user = await knex('users').select('*').where('username','=',username).first();
+        return user;
+    }
+
+    async auth(username: string, password: string) {
+        const user = await this._findUserByUsername(username) as UserPass;
+        let response = {};
+        
+        if(user === undefined) {
+            response = {status: 404, message: "Usuário não existe"};
+        } else {
+            await bcrypt.compare(password, user.password).then((result: any) => {
+                if(result) {
+                    response = {status: 200, message: "Pode passar meu chapa"}
+                } else{
+                    response = {status: 401, message: "Senha incorreta"}
+                }
+            });
+        }
+
+        return response;
     }
 }
 
