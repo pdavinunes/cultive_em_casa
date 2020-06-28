@@ -1,6 +1,9 @@
+require('dotenv').config('.env');
+
 import { Request, Response, request } from 'express';
 import knex from '../database/connection';
-require('dotenv').config('.env');
+
+import User from '../models/User';
 
 class UserController {
     async index(req: Request, res: Response) {
@@ -16,22 +19,11 @@ class UserController {
     }
 
     async store(req: Request, res: Response) {
-        const {
-            name,
-            email,
-            username,
-            password
-        } = req.body;
+
+        const {name, username, password, email} = req.body;
+        const user = new User(name, email, username, password, req.file.filename);
 
         const trx = await knex.transaction();
-
-        const user = {
-            image: req.file.filename,
-            name,
-            email,
-            username,
-            password
-        }
 
         const insertedIds = await trx('users')
                                     .insert(user)
