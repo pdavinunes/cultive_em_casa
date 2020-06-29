@@ -16,8 +16,9 @@ class UserService {
     }
 
     async show(id: any) {
-        let user = await knex('users').select('*').where('id','=', id);
+        let user = await knex('users').select('*').where({id});
         let response = {}; 
+        
         if(!!user[0]) {
             user = this.addUrlInUser(user[0]);
             response = {status: 200, message: {...user}};
@@ -41,17 +42,14 @@ class UserService {
             
             await trx.commit();
             
-            const storedUser = {status: 201, message: "Usuário adicionado com sucesso",id: insertedIds[0],...user}; 
+            const storedUser = {status: 201, 
+                                message: "Usuário adicionado com sucesso",
+                                id: insertedIds[0],
+                                ...user}; 
             
             return storedUser;
         } 
 
-    }
-
-    private async _findUserByUsername(username: string) : Promise<object> {
-        let user = await knex('users').select('*').where('username','=',username).first();
-        user = this.addUrlInUser(user);
-        return user;
     }
 
     async auth(username: string, password: string) {
@@ -93,6 +91,14 @@ class UserService {
     private addUrlInUser(user: any) {
         const imageUrl = `http://localhost:3333/uploads/${user.image}`;
         return {...user, imageUrl}; 
+    }
+
+    private async _findUserByUsername(username: string) : Promise<object> {
+        let user = await knex('users').select('*').where('username','=',username).first();
+        if(!!user) {
+            user = this.addUrlInUser(user[0]);
+        } 
+        return user;
     }
 }
 
