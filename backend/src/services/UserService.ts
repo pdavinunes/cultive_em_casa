@@ -1,4 +1,3 @@
-import {Response} from 'express';
 import knex from '../database/connection';
 import User from '../models/User';
 const bcrypt = require('bcrypt');
@@ -59,7 +58,7 @@ class UserService {
         if(!!user) {
             await bcrypt.compare(password, user.password).then((result: any) => {
                 if(result) { 
-                    response = {status: 200, message: "Pode passar meu chapa", ...user}
+                    response = {status: 200, message: "Usuário autorizado", user: {...user}}
                 } else{
                     response = {status: 401, message: "Senha incorreta"}
                 }
@@ -88,15 +87,34 @@ class UserService {
         return response;
     }
 
+    async updatePassword(id: any, password: any) {
+        const checkUser = await this.show(id) as any;
+        let response = {};
+        if(checkUser.status === 404) {
+            response = checkUser;
+        } else {
+            const updated_at = new Date();
+            password = bcrypt.hashSync(password, 10);
+            const trx = await knex.transaction();
+            await trx('users')
+                .where({id})
+                .update({password, updated_at});
+            await trx.commit(); 
+            response = {status: 200, message: "Senha alterada com sucesso"};
+        }
+        return response;
+    }
+
     private addUrlInUser(user: any) {
         const imageUrl = `http://localhost:3333/uploads/${user.image}`;
         return {...user, imageUrl}; 
     }
 
     private async _findUserByUsername(username: string) : Promise<object> {
-        let user = await knex('users').select('*').where('username','=',username).first();
+        let user = await knex('users').select('*').where({username}).first();
+        console.log(user);
         if(!!user) {
-            user = this.addUrlInUser(user[0]);
+            user = this.addUrlInUser(user);
         } 
         return user;
     }

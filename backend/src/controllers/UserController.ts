@@ -46,6 +46,13 @@ class UserController {
         const resultUpdate = await service.update(id, user) as Result;
         return res.status(resultUpdate.status).json({...resultUpdate});
     }
+
+    async updatePassword(req: Request, res: Response) {
+        const {id} = req.params;
+        const {password} = req.body;
+        const resultUpdate = await service.updatePassword(id, password) as Result;
+        return res.status(resultUpdate.status).json({...resultUpdate});
+    }
 }
 
 export default UserController;
