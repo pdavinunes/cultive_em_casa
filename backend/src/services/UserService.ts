@@ -76,6 +76,11 @@ class UserService {
         if(checkUser.status === 404) {
             response = checkUser;
         } else {
+            
+            if(user.password) {
+                return {status: 400, message: "Usuário não pode ser alterado"}; 
+            }
+
             const updated_at = new Date();
             const trx = await knex.transaction();
             const newUser = await trx('users')
