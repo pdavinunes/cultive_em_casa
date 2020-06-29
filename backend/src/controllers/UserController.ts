@@ -20,11 +20,8 @@ class UserController {
 
     async show(req: Request, res: Response) {
         const {id} = req.params;
-        const user = await service.show(id);
-
-        user.length === 0 ? 
-            res.status(404).json({erro: `Nenhum usuário encontrado para o id: ${id}`})
-            : res.json({user});
+        const resultShow = await service.show(id) as Result;
+        res.status(resultShow.status).json({...resultShow});
     }
 
     async store(req: Request, res: Response) {
@@ -41,6 +38,13 @@ class UserController {
         const {username, password} = req.body;
         const resultAuth = await service.auth(username, password) as Result;
         return res.status(resultAuth.status).json({...resultAuth});
+    }
+
+    async update(req: Request, res: Response) {
+        const {id} = req.params;
+        const user = {...req.body};
+        const resultUpdate = await service.update(id, user) as Result;
+        return res.status(resultUpdate.status).json({...resultUpdate});
     }
 }
 

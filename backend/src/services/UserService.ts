@@ -17,26 +17,33 @@ class UserService {
 
     async show(id: any) {
         let user = await knex('users').select('*').where('id','=', id);
-        user = this.addUrlInUser(user[0]);
-        return user;
+        let response = {}; 
+        if(!!user[0]) {
+            user = this.addUrlInUser(user[0]);
+            response = {status: 200, message: {...user}};
+        } else {
+            response = {status: 404, message: `Nenhum usuário encontrado para o id: ${id}`};
+        }
+        
+        return response; 
     }
 
     async store(user: User) : Promise<object> {
         const checkUser = await this._findUserByUsername(user.username); 
-        if(checkUser === undefined) {
+        if(!!checkUser) {
+            return {status: 401, erro: "Usuario já existe"};    
+        } else {
             const trx = await knex.transaction();
             
             const insertedIds = await trx('users')
-            .insert(user)
-            .returning('id');
+                .insert(user)
+                .returning('id');
             
             await trx.commit();
             
-            const storedUser = {status: 201, id: insertedIds[0],...user}; 
+            const storedUser = {status: 201, message: "Usuário adicionado com sucesso",id: insertedIds[0],...user}; 
             
             return storedUser;
-        } else {
-            return {status: 401, erro: "Usuario já existe"};
         } 
 
     }
@@ -51,9 +58,7 @@ class UserService {
         const user = await this._findUserByUsername(username) as UserSchema;
         let response = {};
         
-        if(user === undefined) {
-            response = {status: 404, message: "Usuário não existe"};
-        } else {
+        if(!!user) {
             await bcrypt.compare(password, user.password).then((result: any) => {
                 if(result) { 
                     response = {status: 200, message: "Pode passar meu chapa", ...user}
@@ -61,8 +66,27 @@ class UserService {
                     response = {status: 401, message: "Senha incorreta"}
                 }
             });
+        } else {
+            response = {status: 404, message: "Usuário não existe"};
         }
 
+        return response;
+    }
+
+    async update(id: any, user: any){
+        const checkUser = await this.show(id) as any;
+        let response = {};
+        if(checkUser.status === 404) {
+            response = checkUser;
+        } else {
+            const updated_at = new Date();
+            const trx = await knex.transaction();
+            const newUser = await trx('users')
+                .where({id})
+                .update({...user, updated_at}, ["*"]);
+            await trx.commit(); 
+            response = {status: 200, message: "Usuário alterado com sucesso", user: newUser};
+        }
         return response;
     }
 
