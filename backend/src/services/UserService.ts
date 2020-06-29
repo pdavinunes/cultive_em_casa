@@ -3,17 +3,22 @@ import knex from '../database/connection';
 import User from '../models/User';
 const bcrypt = require('bcrypt');
 
-interface UserPass {
-    password: string
+interface UserSchema {
+    password: string,
+    image: string,
 }
 
 class UserService {
     async index() {
-        return await knex('users').select('*');
+        let users = await knex('users').select('*');
+        users = users.map((user) => this.addUrlInUser(user)); 
+        return users;
     }
 
     async show(id: any) {
-        return await knex('users').select('*').where('id','=', id);
+        let user = await knex('users').select('*').where('id','=', id);
+        user = this.addUrlInUser(user[0]);
+        return user;
     }
 
     async store(user: User) : Promise<object> {
@@ -37,20 +42,21 @@ class UserService {
     }
 
     private async _findUserByUsername(username: string) : Promise<object> {
-        const user = await knex('users').select('*').where('username','=',username).first();
+        let user = await knex('users').select('*').where('username','=',username).first();
+        user = this.addUrlInUser(user);
         return user;
     }
 
     async auth(username: string, password: string) {
-        const user = await this._findUserByUsername(username) as UserPass;
+        const user = await this._findUserByUsername(username) as UserSchema;
         let response = {};
         
         if(user === undefined) {
             response = {status: 404, message: "Usuário não existe"};
         } else {
             await bcrypt.compare(password, user.password).then((result: any) => {
-                if(result) {
-                    response = {status: 200, message: "Pode passar meu chapa"}
+                if(result) { 
+                    response = {status: 200, message: "Pode passar meu chapa", ...user}
                 } else{
                     response = {status: 401, message: "Senha incorreta"}
                 }
@@ -58,6 +64,11 @@ class UserService {
         }
 
         return response;
+    }
+
+    private addUrlInUser(user: any) {
+        const imageUrl = `http://localhost:3333/uploads/${user.image}`;
+        return {...user, imageUrl}; 
     }
 }
 
