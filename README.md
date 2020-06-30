@@ -1,3 +1,4 @@
-# Cultive em Casa
+# Cultive em Casa :seedling:
 
-Repositório do projeto Cultive em Casa
+Repositório do projeto Cultive em Casa\
+Em breve, mais detalhes...
