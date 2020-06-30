@@ -1,4 +1,4 @@
-package br.com.cultive_em_casa_app
+package br.com.cultive
 
 import androidx.annotation.NonNull;
 import io.flutter.embedding.android.FlutterActivity

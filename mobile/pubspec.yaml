@@ -1,4 +1,4 @@
-name: cultive_em_casa_app
+name: cultive
 description: A new Flutter application.
 
 # The following defines the version and build number for your application.
@@ -23,62 +23,22 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.2
-  charts_flutter: ^0.8.1
-  flutter_svg: ^0.17.4
-  firebase_auth: ^0.16.0
-  cloud_firestore: ^0.13.5
-  provider: ^4.0.5+1
-  http: ^0.12.1
 
 dev_dependencies:
-  flutter_launcher_icons: "^0.7.3"
   flutter_test:
     sdk: flutter
 
-flutter_icons:
-  android: true
-  ios: true
-  image_path: "images/logo_cultive.png"
+
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
 # The following section is specific to Flutter.
 flutter:
 
-  fonts:
-    - family: Lobster
-      fonts:
-        - asset: fonts/Lobster-Regular.ttf
-    - family: OpenSans
-      fonts:
-        - asset: fonts/OpenSans-Regular.ttf
-        - asset: fonts/OpenSans-SemiBold.ttf
-          weight: 600
-        - asset: fonts/OpenSans-Bold.ttf
-          weight: 700
-    - family: GothamRounded
-      fonts:
-        - asset: fonts/GothamRoundedBook.ttf
-
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
-
-  assets:
-    - images/cultivemcasa.png
-    - images/profile.jpg
-    - images/vaso.png
-    - images/logo_cultive.png
-    - images/sol.png
-    - images/umidade.png
-    - images/regar.png
-    - images/planta.svg
-    - images/planta.png
-    - images/user.svg
-    - images/home.svg
-    - images/plant.svg
-    - images/lupa.svg
 
   # To add assets to your application, add an assets section, like this:
   # assets:

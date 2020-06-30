@@ -1,4 +1,4 @@
-# cultive_em_casa_app
+# cultive
 
 A new Flutter application.
 
