@@ -60,6 +60,12 @@ class UserController {
         const resultUpdate = await service.updateImage(id, image) as Result;
         return res.status(resultUpdate.status).json({...resultUpdate});
     }
+
+    async delete(req: Request, res: Response) {
+        const {id} = req.params;
+        const resultUpdate = await service.delete(id) as Result;
+        return res.status(resultUpdate.status).json({...resultUpdate});
+    }
 }
 
 export default UserController;

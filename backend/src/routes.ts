@@ -16,6 +16,7 @@ routes.post('/auth', userController.auth)
 routes.put('/users/:id', userController.update)
 routes.put('/users/:id/password', userController.updatePassword)
 routes.put('/users/:id/image', upload.single('image'), userController.updateImage)
+routes.delete('/users/:id', userController.delete)
 
 
 export default routes;

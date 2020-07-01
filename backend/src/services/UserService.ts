@@ -1,5 +1,7 @@
 import knex from '../database/connection';
 import User from '../models/User';
+import fs from 'fs';
+import path from 'path';
 const bcrypt = require('bcrypt');
 
 interface UserSchema {
@@ -127,6 +129,20 @@ class UserService {
         return response;
     }
 
+    async delete(id: any) {
+        const checkUser = await this.show(id) as any;
+        if(checkUser.status === 404){
+            return checkUser;
+        } else {
+            const user = {...checkUser.message} as any;
+            fs.unlink(path.resolve(__dirname, '..','..','uploads',user.image), _=>{})
+            const trx = await knex.transaction();
+            await trx('users').where({id}).del();
+            await trx.commit();
+        }
+        return {status: 200, message: "Usuário deletado com sucesso!"}
+    }
+
     private addUrlInUser(user: any) {
         const imageUrl = `http://localhost:3333/uploads/${user.image}`;
         return {...user, imageUrl}; 
@@ -140,6 +156,7 @@ class UserService {
         } 
         return user;
     }
+
 }
 
 export default UserService;
