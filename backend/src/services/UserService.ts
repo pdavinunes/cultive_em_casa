@@ -12,22 +12,18 @@ interface UserSchema {
 class UserService {
     async index() {
         let users = await knex('users').select('*');
-        users = users.map((user) => this.addUrlInUser(user)); 
+        users = users.map((user) => this._addUrlInUser(user)); 
         return users;
     }
 
     async show(id: any) {
         let user = await knex('users').select('*').where({id});
-        let response = {}; 
-        
         if(!!user[0]) {
-            user = this.addUrlInUser(user[0]);
-            response = {status: 200, message: {...user}};
+            user = this._addUrlInUser(user[0]);
+            return {status: 200, message: {...user}};
         } else {
-            response = {status: 404, message: `Nenhum usuário encontrado para o id: ${id}`};
-        }
-        
-        return response; 
+            return {status: 404, message: `Nenhum usuário encontrado para o id: ${id}`};
+        } 
     }
 
     async store(user: User) : Promise<object> {
@@ -53,33 +49,28 @@ class UserService {
 
     }
 
-    async auth(username: string, password: string) {
-        const user = await this._findUserByUsername(username) as UserSchema;
-        let response = {};
-        
-        if(!!user) {
-            await bcrypt.compare(password, user.password).then((result: any) => {
-                if(result) { 
-                    response = {status: 200, message: "Usuário autorizado", user: {...user}}
-                } else{
-                    response = {status: 401, message: "Senha incorreta"}
-                }
-            });
-        } else {
-            response = {status: 404, message: "Usuário não existe"};
-        }
+    async auth(username: string, password: string) : Promise<any>{
+        const userPromise = this._findUserByUsername(username);
 
-        return response;
+        return await userPromise.then(async (user: any) => {
+            if(!!user) {
+                return await bcrypt.compare(password, user.password).then((result: any) => {
+                    return result ? {status: 200, message: "Usuário autorizado", user: {...user}}
+                    : {status: 401, message: "Senha incorreta"}
+                });
+            } else {
+                return {status: 404, message: "Usuário não existe"};
+            }
+        });
     }
 
     async update(id: any, user: any){
         const checkUser = await this.show(id) as any;
-        let response = {};
         if(checkUser.status === 404) {
-            response = checkUser;
+            return checkUser;
         } else {
             
-            if(user.password) {
+            if(user.password || user.image) {
                 return {status: 400, message: "Usuário não pode ser alterado"}; 
             }
 
@@ -89,16 +80,14 @@ class UserService {
                 .where({id})
                 .update({...user, updated_at}, ["*"]);
             await trx.commit(); 
-            response = {status: 200, message: "Usuário alterado com sucesso", user: newUser};
+            return {status: 200, message: "Usuário alterado com sucesso", user: newUser};
         }
-        return response;
     }
 
     async updatePassword(id: any, password: any) {
         const checkUser = await this.show(id) as any;
-        let response = {};
         if(checkUser.status === 404) {
-            response = checkUser;
+            return checkUser;
         } else {
             const updated_at = new Date();
             password = bcrypt.hashSync(password, 10);
@@ -107,16 +96,14 @@ class UserService {
                 .where({id})
                 .update({password, updated_at});
             await trx.commit(); 
-            response = {status: 200, message: "Senha alterada com sucesso"};
+            return {status: 200, message: "Senha alterada com sucesso"};
         }
-        return response;
     }
 
     async updateImage(id: any, image: any) {
         const checkUser = await this.show(id) as any;
-        let response = {};
         if(checkUser.status === 404) {
-            response = checkUser;
+            return checkUser;
         } else {
             const updated_at = new Date();
             const trx = await knex.transaction();
@@ -124,9 +111,8 @@ class UserService {
                 .where({id})
                 .update({image, updated_at});
             await trx.commit(); 
-            response = {status: 200, message: "Foto do perfil alterada com sucesso"};
+            return {status: 200, message: "Foto do perfil alterada com sucesso"};
         }
-        return response;
     }
 
     async delete(id: any) {
@@ -143,18 +129,14 @@ class UserService {
         return {status: 200, message: "Usuário deletado com sucesso!"}
     }
 
-    private addUrlInUser(user: any) {
+    private _addUrlInUser(user: any) {
         const imageUrl = `http://localhost:3333/uploads/${user.image}`;
         return {...user, imageUrl}; 
     }
 
     private async _findUserByUsername(username: string) : Promise<object> {
         let user = await knex('users').select('*').where({username}).first();
-        console.log(user);
-        if(!!user) {
-            user = this.addUrlInUser(user);
-        } 
-        return user;
+        return !!user ? user = this._addUrlInUser(user) : user;
     }
 
 }
