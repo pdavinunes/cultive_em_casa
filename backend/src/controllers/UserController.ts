@@ -53,6 +53,13 @@ class UserController {
         const resultUpdate = await service.updatePassword(id, password) as Result;
         return res.status(resultUpdate.status).json({...resultUpdate});
     }
+
+    async updateImage(req: Request, res: Response) {
+        const {id} = req.params;
+        const image = req.file.filename;
+        const resultUpdate = await service.updateImage(id, image) as Result;
+        return res.status(resultUpdate.status).json({...resultUpdate});
+    }
 }
 
 export default UserController;

@@ -110,6 +110,23 @@ class UserService {
         return response;
     }
 
+    async updateImage(id: any, image: any) {
+        const checkUser = await this.show(id) as any;
+        let response = {};
+        if(checkUser.status === 404) {
+            response = checkUser;
+        } else {
+            const updated_at = new Date();
+            const trx = await knex.transaction();
+            await trx('users')
+                .where({id})
+                .update({image, updated_at});
+            await trx.commit(); 
+            response = {status: 200, message: "Foto do perfil alterada com sucesso"};
+        }
+        return response;
+    }
+
     private addUrlInUser(user: any) {
         const imageUrl = `http://localhost:3333/uploads/${user.image}`;
         return {...user, imageUrl}; 
