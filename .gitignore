@@ -197,4 +197,7 @@ tmp/
 temp/
 
 # End of https://www.gitignore.io/api/node,dart,linux,flutter
-backend/uploads/*
+
+# Pessoal configs
+backend/uploads/plant_images/*
+backend/uploads/user_images/*
