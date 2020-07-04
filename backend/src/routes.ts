@@ -2,10 +2,10 @@ import express from 'express';
 import multer from 'multer';
 
 import UserController from './controllers/UserController';
-import multerConfig from './config/multer';
+import multerConfigUser from './config/multerUser';
 
 const routes = express.Router();
-const upload = multer(multerConfig);
+const upload = multer(multerConfigUser);
 
 const userController = new UserController();
 
