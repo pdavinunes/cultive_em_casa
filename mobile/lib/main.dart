@@ -92,11 +92,20 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
-              'You have pushed the button this many times:',
+              'No style',
+              style: TextStyle(fontSize: 20),
             ),
             Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.display1,
+              'Montserrat',
+              style: TextStyle(fontFamily: 'Montserrat', fontSize: 20),
+            ),
+            Text(
+              'Monteserrat Medium',
+              style: TextStyle(fontFamily: 'Montserrat', fontSize: 20, fontWeight: FontWeight.w500),
+            ),
+            Text(
+              'Monteserrat Medium Italic',
+              style: TextStyle(fontFamily: 'Montserrat', fontSize: 20, fontWeight: FontWeight.w500, fontStyle: FontStyle.italic),
             ),
           ],
         ),
