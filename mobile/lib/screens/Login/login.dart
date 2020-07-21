@@ -1,3 +1,4 @@
+import 'package:cultive/screens/RegisterUser/registerUser.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 
@@ -40,7 +41,11 @@ class _LoginScreenState extends State<LoginScreen> {
             TextField(
               controller: email,
               decoration: InputDecoration(
-                  labelText: 'Email', prefixIcon: Icon(Feather.mail, color: Color(0xff2E965B),)),
+                  labelText: 'Email',
+                  prefixIcon: Icon(
+                    Feather.mail,
+                    color: Color(0xff2E965B),
+                  )),
             ),
             TextField(
               controller: password,
@@ -50,10 +55,10 @@ class _LoginScreenState extends State<LoginScreen> {
                   prefixIcon: Icon(Feather.lock, color: Color(0xff2E965B)),
                   suffixIcon: IconButton(
                       icon: Icon(
-                          (passwordVisibility) ? Feather.eye_off : Feather.eye), color: Color(0xffcccccc),
+                          (passwordVisibility) ? Feather.eye_off : Feather.eye),
+                      color: Color(0xffcccccc),
                       onPressed: () => {
                             setState(() {
-                              print(email.value.text);
                               passwordVisibility = !passwordVisibility;
                             })
                           })),
@@ -89,19 +94,27 @@ class _LoginScreenState extends State<LoginScreen> {
                 color: Color(0xff2E965B),
               ),
             ),
-            Center(
-              child: Text.rich(
-                TextSpan(
-                  text: 'Ainda não possui uma conta? ',
-                  style: TextStyle(fontSize: 12, color: Color(0xff2E965B)),
-                  children: <TextSpan>[
-                    TextSpan(
-                        text: 'Cadastre-se',
-                        style: TextStyle(
-                          fontWeight: FontWeight.w700,
-                        )),
-                    // can add more TextSpans here...
-                  ],
+            GestureDetector(
+              onTap: () => {
+                Navigator.push(
+                  context, 
+                  MaterialPageRoute(
+                    builder: (context) => RegisterUser()))
+              },
+              child: Center(
+                child: Text.rich(
+                  TextSpan(
+                    text: 'Ainda não possui uma conta? ',
+                    style: TextStyle(fontSize: 12, color: Color(0xff2E965B)),
+                    children: <TextSpan>[
+                      TextSpan(
+                          text: 'Cadastre-se',
+                          style: TextStyle(
+                            fontWeight: FontWeight.w700,
+                          )),
+                      // can add more TextSpans here...
+                    ],
+                  ),
                 ),
               ),
             )
