@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-final ThemeData CompanyThemeData = new ThemeData(
+final ThemeData companyThemeData = new ThemeData(
   brightness: Brightness.light,
   primaryColorBrightness: Brightness.light,
   accentColor: CompanyColors.green[500],

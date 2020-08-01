@@ -1,6 +1,7 @@
-import 'package:cultive/screens/RegisterUser/registerUser.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
+import 'package:cultive/screens/RegisterUser/registerUser.dart';
+import 'package:cultive/screens/Navigation/navigation.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -81,7 +82,12 @@ class _LoginScreenState extends State<LoginScreen> {
               width: width,
               padding: EdgeInsets.only(bottom: height * 0.1),
               child: RaisedButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushAndRemoveUntil(
+                  context, 
+                  MaterialPageRoute(
+                    builder: (context) => NavigationScreen()), (_) => false);
+                },
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(19)),
                 child: Text(
