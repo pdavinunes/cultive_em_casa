@@ -3,6 +3,7 @@ import Knex from "knex";
 export async function up(knex: Knex) {
   return knex.schema.createTable("user_plants", (table) => {
     table.increments("id").primary();
+    table.string("name").notNullable();
     table.string("image").notNullable();
     table.string("avatar").notNullable();
     table.decimal("latitude").notNullable();
