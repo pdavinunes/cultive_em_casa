@@ -1,6 +1,6 @@
-import 'package:cultive/screens/RegisterUser/registerUser.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
+import 'package:cultive/screens/Home/home.dart';
 
 class NavigationScreen extends StatefulWidget {
   @override
@@ -9,10 +9,8 @@ class NavigationScreen extends StatefulWidget {
 
 class _NavigationScreenState extends State<NavigationScreen> {
   int _selectedIndex = 0;
-  static const List<Widget> _widgetOptions = <Widget>[
-    Text(
-      'Index 0: Home',
-    ),
+  static List<Widget> _widgetOptions = <Widget>[
+    HomeScreen(),
     Text(
       'Index 1: Business',
     ),

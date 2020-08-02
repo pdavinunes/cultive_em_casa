@@ -18,9 +18,6 @@ dependencies:
   http: ^0.12.2
 
 dev_dependencies:
-  flutter_test:
-    sdk: flutter
-
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -36,6 +33,9 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
    - lib/assets/images/logo.png
+   - lib/assets/images/regar.png
+   - lib/assets/images/adubar.png
+   - lib/assets/images/podar.png
 
   #  - images/a_dot_ham.jpeg
 
