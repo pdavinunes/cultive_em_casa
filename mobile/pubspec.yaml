@@ -17,8 +17,6 @@ dependencies:
   image_picker: ^0.6.7+4
   http: ^0.12.2
 
-dev_dependencies:
-
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 

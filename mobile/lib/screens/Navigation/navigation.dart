@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:cultive/screens/Home/home.dart';
+import 'package:cultive/screens/User/user.dart';
 
 class NavigationScreen extends StatefulWidget {
   @override
@@ -14,9 +15,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
     Text(
       'Index 1: Business',
     ),
-    Text(
-      'Index 2: School',
-    ),
+    UserScreen(),
   ];
 
   void _onItemTapped(int index) {
