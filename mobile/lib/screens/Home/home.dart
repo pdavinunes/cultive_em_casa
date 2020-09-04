@@ -15,6 +15,7 @@ class _HomeScreenState extends State<HomeScreen> {
       padding: EdgeInsets.fromLTRB(25, 20, 0, 15),
       color: Colors.white,
       child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Text("Minhas plantas",
@@ -22,16 +23,14 @@ class _HomeScreenState extends State<HomeScreen> {
                     fontWeight: FontWeight.w600,
                     fontSize: 10,
                     color: Color(0xff266E46))),
-            SizedBox(height: 15),
             SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
               child: Row(
                 children: <Widget>[
                   PlantCard("Mudinha"),
-                  PlantCard("Mudinha"),
-                  PlantCard("Mudinha"),
-                  PlantCard("Mudinha"),
+                  PlantCard("Cactus Jake"),
+                  PlantCard("Jubileu"),
                 ],
               ),
             ),
@@ -54,7 +53,7 @@ class _HomeScreenState extends State<HomeScreen> {
             GestureDetector(
               onTap: () {},
               child: Container(
-                height: 62,
+                height: 70,
                 margin: EdgeInsets.only(top: 15, right: 25),
                 padding: EdgeInsets.symmetric(horizontal: 25),
                 width: double.infinity,
@@ -77,7 +76,7 @@ class _HomeScreenState extends State<HomeScreen> {
             GestureDetector(
               onTap: () {},
               child: Container(
-                height: 62,
+                height: 70,
                 margin: EdgeInsets.only(top: 15, right: 25),
                 padding: EdgeInsets.symmetric(horizontal: 25),
                 width: double.infinity,
@@ -100,7 +99,7 @@ class _HomeScreenState extends State<HomeScreen> {
             GestureDetector(
               onTap: () {},
               child: Container(
-                height: 62,
+                height: 70,
                 margin: EdgeInsets.only(top: 15, right: 25),
                 padding: EdgeInsets.symmetric(horizontal: 25),
                 width: double.infinity,
