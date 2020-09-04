@@ -1,3 +1,4 @@
+import 'package:cultive/screens/ListPlants/listPlants.dart';
 import 'package:cultive/widgets/Plants/PlantCard.dart';
 import 'package:flutter/material.dart';
 
@@ -38,7 +39,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 width: double.infinity,
                 padding: EdgeInsets.only(right: 25),
                 child: GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => ListPlants()));
+                  },
                   child: Text(
                     "ver todas as plantas",
                     textAlign: TextAlign.end,
