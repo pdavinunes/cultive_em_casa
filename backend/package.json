@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "prestart": "knex --knexfile knexfile.ts migrate:rollback --all && knex --knexfile knexfile.ts migrate:latest && knex --knexfile knexfile.ts seed:run",
     "start": "ts-node src/server.ts",
