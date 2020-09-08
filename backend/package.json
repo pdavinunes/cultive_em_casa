@@ -4,6 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "prestart": "knex --knexfile knexfile.ts migrate:rollback --all && knex --knexfile knexfile.ts migrate:latest",
+    "start": "ts-node src/server.ts",
     "dev": "ts-node-dev --transpileOnly --ignore-watch node_modules src/server.ts",
     "knex:migrate": "knex --knexfile knexfile.ts migrate:latest",
     "knex:rollback": "knex --knexfile knexfile.ts migrate:rollback --all",
