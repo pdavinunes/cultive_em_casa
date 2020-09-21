@@ -1,3 +1,4 @@
+import 'package:cultive/models/plant.dart';
 import 'package:cultive/screens/ListPlants/listPlants.dart';
 import 'package:cultive/widgets/Plants/PlantCard.dart';
 import 'package:flutter/material.dart';
@@ -29,9 +30,9 @@ class _HomeScreenState extends State<HomeScreen> {
               padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
               child: Row(
                 children: <Widget>[
-                  PlantCard("Mudinha"),
-                  PlantCard("Cactus Jake"),
-                  PlantCard("Jubileu"),
+                  PlantCard(Plant("Mudinha")),
+                  PlantCard(Plant("Cactus Jake")),
+                  PlantCard(Plant("Jubileu")),
                 ],
               ),
             ),

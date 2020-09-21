@@ -13,34 +13,17 @@ class _RegisterPlantState extends State<RegisterPlant> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
-        automaticallyImplyLeading: false,
-        title: GestureDetector(
-          onTap: () {
-            Navigator.pop(context);
-          },
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: <Widget>[
-              GestureDetector(
-                  onTap: () => {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => NavigationScreen()))
-                      },
-                  child: Icon(Feather.x, color: Colors.grey)),
-              Container(
-                margin: EdgeInsets.only(left: 10),
-                child: Text('Cadastrar Planta',
-                    style: TextStyle(
-                        color: Color(0xff272727),
-                        fontSize: 22,
-                        fontFamily: 'OpenSans')),
-              )
-            ],
-          ),
+        title: Text(
+          'Cadastrar Planta',
+          style: TextStyle(
+              fontFamily: 'OpenSans', color: Color(0xff272727), fontSize: 22),
         ),
+        leading: GestureDetector(
+          onTap: () {
+            Navigator.of(context).pop();
+          },
+            child: Icon(Feather.x, color: Colors.grey.shade400)),
+        backgroundColor: Colors.white,
       ),
       body: SingleChildScrollView(
         padding: EdgeInsets.only(top: 20),

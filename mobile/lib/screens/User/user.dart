@@ -1,4 +1,5 @@
 import 'package:cultive/screens/Login/login.dart';
+import 'package:cultive/screens/NotFound/notFound.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:flutter/material.dart';
 
@@ -18,7 +19,7 @@ class _UserScreenState extends State<UserScreen> {
       child: Column(
         children: <Widget>[
           Container(
-            height: 200.0,
+            height: 190.0,
             width: 200.0,
             margin: EdgeInsets.only(bottom: 30),
             decoration: BoxDecoration(
@@ -26,7 +27,7 @@ class _UserScreenState extends State<UserScreen> {
               image: DecorationImage(
                   fit: BoxFit.fill,
                   image: NetworkImage(
-                      'http://10.0.2.2:3333/uploads/user_images/d7e9a798aee6-33943794.jpeg')),
+                      'https://images.unsplash.com/photo-1561438484-8337264280c3?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=486&q=80')),
             ),
           ),
           Container(
@@ -42,6 +43,9 @@ class _UserScreenState extends State<UserScreen> {
                       fontWeight: FontWeight.w500
                     ),),
                     trailing: Icon(Feather.chevron_right, color: Color(0xff2E965B),),
+                    onTap: () {
+                      Navigator.of(context).push(MaterialPageRoute(builder: (context) => NotFoundPage()));
+                    },
                   ),
                 ),
                 Card(
@@ -53,6 +57,9 @@ class _UserScreenState extends State<UserScreen> {
                       fontWeight: FontWeight.w500
                     ),),
                     trailing: Icon(Feather.chevron_right, color: Color(0xff2E965B),),
+                    onTap: () {
+                      Navigator.of(context).push(MaterialPageRoute(builder: (context) => NotFoundPage()));
+                    },
                   ),
                 ),
                 Card(
@@ -64,6 +71,9 @@ class _UserScreenState extends State<UserScreen> {
                       fontWeight: FontWeight.w500
                     ),),
                     trailing: Icon(Feather.chevron_right, color: Color(0xff2E965B),),
+                    onTap: () {
+                      Navigator.of(context).push(MaterialPageRoute(builder: (context) => NotFoundPage()));
+                    },
                   ),
                 ),
                 Card(
