@@ -1,22 +1,12 @@
-import express from 'express';
-import multer from 'multer';
-
-import UserController from './controllers/UserController';
-import multerConfigUser from './config/multerUser';
+import express from "express";
+import UserRouter from "./routes/UserRouter";
+import UserPlantRouter from "./routes/UserPlantRouter";
+import PlantRouter from "./routes/PlantRouter";
 
 const routes = express.Router();
-const upload = multer(multerConfigUser);
 
-const userController = new UserController();
-
-routes.get('/users', userController.index)
-routes.get('/users/:id', userController.show)
-routes.post('/users', upload.single('image'), userController.store)
-routes.post('/auth', userController.auth)
-routes.put('/users/:id', userController.update)
-routes.put('/users/:id/password', userController.updatePassword)
-routes.put('/users/:id/image', upload.single('image'), userController.updateImage)
-routes.delete('/users/:id', userController.delete)
-
+routes.use(UserPlantRouter);
+routes.use(UserRouter);
+routes.use(PlantRouter);
 
 export default routes;
