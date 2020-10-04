@@ -5,11 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 
 class PlantPage extends StatefulWidget {
-  Plant plant;
+  final Plant plant;
 
-  PlantPage(Plant plant) {
-    this.plant = plant;
-  }
+  PlantPage(this.plant);
 
   @override
   _PlantPageState createState() => _PlantPageState(this.plant);

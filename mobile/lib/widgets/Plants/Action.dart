@@ -5,11 +5,9 @@ import 'package:flutter/material.dart';
 enum ActionPageTypes { Regar, Podar, Adubar }
 
 class ActionPage extends StatelessWidget {
-  ActionPageTypes type;
+  final ActionPageTypes type;
 
-  ActionPage(ActionPageTypes type) {
-    this.type = type;
-  }
+  ActionPage(this.type);
 
   String get _nextAction {
     switch (this.type) {

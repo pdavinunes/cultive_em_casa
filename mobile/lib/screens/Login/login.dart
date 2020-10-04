@@ -1,3 +1,4 @@
+import 'package:cultive/services/auth_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:cultive/screens/RegisterUser/registerUser.dart';
@@ -19,92 +20,99 @@ class _LoginScreenState extends State<LoginScreen> {
     double height = MediaQuery.of(context).size.height;
 
     return Scaffold(
-      body: Container(
-        color: Colors.white,
-        width: width,
-        height: height,
-        child: SingleChildScrollView(
-          physics: AlwaysScrollableScrollPhysics(),
-          padding: EdgeInsets.fromLTRB(
-              width * 0.12, height * 0.1, width * 0.12, height * 0.05),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Center(child: Image.asset('lib/assets/images/logo.png')),
-              SizedBox(
-                height: height * 0.05,
-              ),
-              Text('Acesse sua conta:',
-                  style: TextStyle(
-                      fontWeight: FontWeight.w700,
-                      fontSize: 14,
-                      color: Color(0xff2E965B))),
-              TextField(
-                controller: email,
-                decoration: InputDecoration(
-                    labelText: 'Email',
-                    prefixIcon: Icon(
-                      Feather.mail,
-                      color: Color(0xff2E965B),
-                    )),
-              ),
-              TextField(
-                controller: password,
-                obscureText: passwordVisibility,
-                decoration: InputDecoration(
-                    labelText: 'Senha',
-                    prefixIcon: Icon(Feather.lock, color: Color(0xff2E965B)),
-                    suffixIcon: IconButton(
-                        icon: Icon((passwordVisibility)
-                            ? Feather.eye_off
-                            : Feather.eye),
-                        color: Color(0xffcccccc),
-                        onPressed: () => {
-                              setState(() {
-                                passwordVisibility = !passwordVisibility;
-                              })
-                            })),
-              ),
-              GestureDetector(
-                onTap: () {},
-                child: Container(
-                  width: width,
-                  padding:
-                      EdgeInsets.fromLTRB(0, height * 0.02, 0, height * 0.05),
-                  child: Text('Esqueceu a senha?',
-                      textAlign: TextAlign.end,
-                      style: TextStyle(
-                          fontSize: 12,
-                          decoration: TextDecoration.underline,
-                          color: Color(0xff2E965B))),
-                ),
-              ),
-              Container(
-                width: width,
-                padding: EdgeInsets.only(bottom: height * 0.1),
-                child: RaisedButton(
-                  onPressed: () {
-                    Navigator.pushAndRemoveUntil(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => NavigationScreen()),
-                        (_) => false);
-                  },
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(19)),
-                  child: Text(
-                    'ACESSAR',
-                    style: TextStyle(
-                        fontFamily: 'OpenSans',
-                        fontSize: 16,
-                        color: Colors.white),
+      body: Builder(
+        builder: (context) => Container(
+            color: Colors.white,
+            width: width,
+            height: height,
+            child: SingleChildScrollView(
+              physics: AlwaysScrollableScrollPhysics(),
+              padding: EdgeInsets.fromLTRB(
+                  width * 0.12, height * 0.1, width * 0.12, height * 0.05),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Center(child: Image.asset('lib/assets/images/logo.png')),
+                  SizedBox(
+                    height: height * 0.05,
                   ),
-                  color: Color(0xff2E965B),
-                ),
+                  Text('Acesse sua conta:',
+                      style: TextStyle(
+                          fontWeight: FontWeight.w700,
+                          fontSize: 14,
+                          color: Color(0xff2E965B))),
+                  TextField(
+                    controller: email,
+                    decoration: InputDecoration(
+                        labelText: 'Email',
+                        prefixIcon: Icon(
+                          Feather.mail,
+                          color: Color(0xff2E965B),
+                        )),
+                  ),
+                  TextField(
+                    controller: password,
+                    obscureText: passwordVisibility,
+                    decoration: InputDecoration(
+                        labelText: 'Senha',
+                        prefixIcon: Icon(Feather.lock, color: Color(0xff2E965B)),
+                        suffixIcon: IconButton(
+                            icon: Icon((passwordVisibility)
+                                ? Feather.eye_off
+                                : Feather.eye),
+                            color: Color(0xffcccccc),
+                            onPressed: () => {
+                                  setState(() {
+                                    passwordVisibility = !passwordVisibility;
+                                  })
+                                })),
+                  ),
+                  GestureDetector(
+                    onTap: () {},
+                    child: Container(
+                      width: width,
+                      padding:
+                          EdgeInsets.fromLTRB(0, height * 0.02, 0, height * 0.05),
+                      child: Text('Esqueceu a senha?',
+                          textAlign: TextAlign.end,
+                          style: TextStyle(
+                              fontSize: 12,
+                              decoration: TextDecoration.underline,
+                              color: Color(0xff2E965B))),
+                    ),
+                  ),
+                  Container(
+                    width: width,
+                    padding: EdgeInsets.only(bottom: height * 0.1),
+                    child: RaisedButton(
+                      onPressed: () async {
+                        final auth = AuthService();
+                        auth.login(username: email.text, password: password.text).then((user) => {
+                          user != null ? 
+                           Navigator.pushAndRemoveUntil(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => NavigationScreen(user)),
+                            (_) => false) 
+                          : _showSnackBar(context) 
+                        });
+                      },
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(19)),
+                      child: Text(
+                        'ACESSAR',
+                        style: TextStyle(
+                            fontFamily: 'OpenSans',
+                            fontSize: 16,
+                            color: Colors.white),
+                      ),
+                      color: Color(0xff2E965B),
+                    ),
+                  ),
+                ],
               ),
-            ],
-          ),
-        ),
+            ),
+          )
       ),
       bottomNavigationBar: Container(
         height: 50,
@@ -131,6 +139,16 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
           ),
         ),
+      ),
+    );
+  }
+
+  _showSnackBar(BuildContext context) {
+    final scaffold = Scaffold.of(context);
+    scaffold.showSnackBar(
+      SnackBar(
+        content: const Text('Usuário incorreto'),
+        backgroundColor: Colors.red.shade400,
       ),
     );
   }

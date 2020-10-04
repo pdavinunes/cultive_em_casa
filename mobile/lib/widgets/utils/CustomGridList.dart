@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
 
 class CustomGridList extends StatelessWidget {
-  String title;
-  List<String> items;
+  final String title;
+  final List<String> items;
 
-  CustomGridList(String title, List<String> items) {
-    this.title = title;
-    this.items = items;
-  }
+  CustomGridList(this.title, this.items);
 
   @override
   Widget build(BuildContext context) {

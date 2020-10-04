@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 
 class PlantListTile extends StatelessWidget {
-  String name;
+  final String name;
 
-  PlantListTile(String name) {
-    this.name = name;
-  }
+  PlantListTile(this.name);
 
   @override
   Widget build(BuildContext context) {

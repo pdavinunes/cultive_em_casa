@@ -3,11 +3,9 @@ import 'package:cultive/screens/Plant/plant.dart';
 import 'package:flutter/material.dart';
 
 class PlantCard extends StatelessWidget {
-  Plant plant;
+  final Plant plant;
 
-  PlantCard(Plant plant) {
-    this.plant = plant;
-  }
+  PlantCard(this.plant);
 
   @override
   Widget build(BuildContext context) {

@@ -1,4 +1,5 @@
 
+import 'package:cultive/models/user.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:cultive/screens/Home/home.dart';
@@ -6,11 +7,22 @@ import 'package:cultive/screens/User/user.dart';
 import 'package:cultive/screens/RegisterPlant/registerPlant.dart';
 
 class NavigationScreen extends StatefulWidget {
+
+  final User user;
+
+  NavigationScreen(this.user);
+
   @override
-  _NavigationScreenState createState() => _NavigationScreenState();
+  _NavigationScreenState createState() => _NavigationScreenState(user);
 }
 
 class _NavigationScreenState extends State<NavigationScreen> {
+  User _user;
+
+  User get user => _user;
+
+  _NavigationScreenState(_user);
+
   int _selectedIndex = 0;
   static List<Widget> _widgetOptions = <Widget>[
     HomeScreen(),

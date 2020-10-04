@@ -5,11 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 
 class VisaoGeral extends StatelessWidget {
-  Plant plant;
+  final Plant plant;
 
-  VisaoGeral(Plant plant) {
-    this.plant = plant;
-  }
+  const VisaoGeral(this.plant);
 
   @override
   Widget build(BuildContext context) {

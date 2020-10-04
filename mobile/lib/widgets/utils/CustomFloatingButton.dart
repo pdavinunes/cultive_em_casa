@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 
 class CustomFloatingButton extends StatelessWidget {
 
-  Color color; 
-  Widget child;
-  Function onTap;
+  final Color color; 
+  final Widget child;
+  final Function onTap;
 
   CustomFloatingButton(this.color, this.child, this.onTap);
 
