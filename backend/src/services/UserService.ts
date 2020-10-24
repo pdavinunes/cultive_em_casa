@@ -44,7 +44,7 @@ class UserService {
         status: 201,
         message: "Usuário adicionado com sucesso",
         id: insertedIds[0],
-        ...user,
+        user: this._addUrlInUser(user),
       };
 
       return storedUser;
@@ -141,7 +141,7 @@ class UserService {
   }
 
   private _addUrlInUser(user: any) {
-    const imageUrl = `http://localhost:3333/uploads/user_images/${user.image}`;
+    const imageUrl = `uploads/user_images/${user.image}`;
     return { ...user, imageUrl };
   }
 

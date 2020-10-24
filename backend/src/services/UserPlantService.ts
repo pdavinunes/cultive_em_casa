@@ -39,7 +39,6 @@ class UserPlantService {
     if (!user_plant.hasOwnProperty("last_fertilization")) {
       user_plant = { ...user_plant, last_fertilization: this.getEventDate() };
     }
-
     const trx = await knex.transaction();
     const insertedIds = await trx("user_plants")
       .insert(user_plant)
