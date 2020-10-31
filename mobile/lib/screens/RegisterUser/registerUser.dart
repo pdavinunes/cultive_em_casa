@@ -1,9 +1,11 @@
+import 'package:cultive/models/user.dart';
 import 'package:cultive/screens/Navigation/navigation.dart';
 import 'package:cultive/services/user_service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
 
 class RegisterUser extends StatefulWidget {
   @override
@@ -204,7 +206,7 @@ class _RegisterUserState extends State<RegisterUser> {
     );
   }
 
-  cadastrarUser(BuildContext context) {
+  cadastrarUser(BuildContext context) async {
     if (nome.text == null ||
         username.text == null ||
         email.text == null ||
@@ -219,7 +221,7 @@ class _RegisterUserState extends State<RegisterUser> {
     }
 
     final _service = UserService();
-    _service
+    await _service
         .login(
           file: _image,
           nome: nome.text,
@@ -228,15 +230,19 @@ class _RegisterUserState extends State<RegisterUser> {
           password: password.text,
         )
         .then((user) => {
-              user != null 
-                  ? Navigator.pushAndRemoveUntil(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => NavigationScreen(user)),
-                      (_) => false)
+              user != null
+                  ? _storeUserAndNavigate(user, context)
                   : _showSnackBar(
                       context, 'Problema inesperado, tente mais tarde!')
             });
+  }
+
+  _storeUserAndNavigate(User user, BuildContext context) {
+    Provider.of<User>(context, listen: false).setUser(user);
+    Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(builder: (context) => NavigationScreen()),
+        (_) => false);
   }
 
   _showSnackBar(BuildContext context, String text) {

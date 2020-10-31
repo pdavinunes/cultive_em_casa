@@ -1,30 +1,22 @@
-
 import 'package:cultive/models/user.dart';
+import 'package:cultive/services/auth_service.dart';
+import 'package:cultive/services/user_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:cultive/screens/Home/home.dart';
 import 'package:cultive/screens/User/user.dart';
 import 'package:cultive/screens/RegisterPlant/registerPlant.dart';
+import 'package:provider/provider.dart';
 
 class NavigationScreen extends StatefulWidget {
-
-  final User user;
-
-  NavigationScreen(this.user);
-
   @override
-  _NavigationScreenState createState() => _NavigationScreenState(user);
+  _NavigationScreenState createState() => _NavigationScreenState();
 }
 
 class _NavigationScreenState extends State<NavigationScreen> {
-  User _user;
-
-  User get user => _user;
-
-  _NavigationScreenState(_user);
-
   int _selectedIndex = 0;
-  static List<Widget> _widgetOptions = <Widget>[
+
+  List<Widget> _widgetOptions = <Widget>[
     HomeScreen(),
     Container(),
     UserScreen(),
@@ -34,6 +26,21 @@ class _NavigationScreenState extends State<NavigationScreen> {
     setState(() {
       _selectedIndex = index;
     });
+  }
+
+  Future<void> init() async {
+    final idUser = await AuthService().getIdUser();
+    UserService().getUser(idUser).then(
+        (user) => Provider.of<User>(context, listen: false).setUser(user));
+    if (mounted) {
+      setState(() {});
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    init();
   }
 
   @override

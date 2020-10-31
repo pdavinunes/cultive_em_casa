@@ -1,9 +1,10 @@
 import 'package:dio/dio.dart';
+import 'package:cultive/.env.dart' as env;
 
 class ApiClient {
   
   BaseOptions _optionsDefault = BaseOptions(
-      baseUrl: "http://10.0.2.2:3333/",
+      baseUrl: env.API_URL,
       connectTimeout: 5000,
   );
 

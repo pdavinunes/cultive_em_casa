@@ -26,6 +26,7 @@
 .flutter-plugins
 .flutter-plugins-dependencies
 .packages
+.env.dart
 .pub-cache/
 .pub/
 /build/

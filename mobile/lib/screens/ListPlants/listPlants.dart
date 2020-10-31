@@ -1,3 +1,4 @@
+import 'package:cultive/services/plant_service.dart';
 import 'package:cultive/widgets/Plants/PlantListTile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
@@ -26,12 +27,18 @@ class _ListPlantsState extends State<ListPlants> {
       ),
       body: SingleChildScrollView(
         padding: EdgeInsets.symmetric(horizontal: 30, vertical: 30),
-        child: Column(
-          children: <Widget>[
-            PlantListTile('Mudinha'),
-            PlantListTile('Cactus Jake'),
-            PlantListTile('Jubileu'),
-          ],
+        child: FutureBuilder<Object>(
+          future: PlantService().plantsUser(),
+          builder: (context, snapshot) {
+            print(snapshot);
+            return Column(
+              children: <Widget>[
+                PlantListTile('Mudinha'),
+                PlantListTile('Cactus Jake'),
+                PlantListTile('Jubileu'),
+              ],
+            );
+          }
         ),
       ),
     );

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 
-class NotFoundPage extends StatelessWidget {
+class OfflineScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -14,11 +14,11 @@ class NotFoundPage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-          Icon(Feather.alert_octagon, size: 48, color: Colors.black45,),
+          Icon(Feather.wifi_off, size: 48, color: Colors.black45,),
           SizedBox(height: 10),
-          Text('Cuidado!', style: TextStyle(fontSize: 24, color: Colors.black45, fontWeight: FontWeight.bold),),
+          Text('Eiitaa!', style: TextStyle(fontSize: 24, color: Colors.black45, fontWeight: FontWeight.bold),),
           SizedBox(height: 20),
-          Text('O app está em construção, algumas funções não foram feitas ainda! 😉', style: TextStyle(fontSize: 20, color: Colors.grey), textAlign: TextAlign.center,),
+          Text('Parece que você está offline! ☹', style: TextStyle(fontSize: 20, color: Colors.grey), textAlign: TextAlign.center,),
         ],),
       ),),
     );

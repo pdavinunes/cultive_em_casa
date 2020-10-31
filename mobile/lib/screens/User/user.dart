@@ -1,16 +1,39 @@
+import 'package:cultive/models/user.dart';
 import 'package:cultive/screens/Login/login.dart';
 import 'package:cultive/screens/NotFound/notFound.dart';
+import 'package:cultive/services/auth_service.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:cultive/.env.dart' as env;
 
 class UserScreen extends StatefulWidget {
+
   @override
   _UserScreenState createState() => _UserScreenState();
 }
 
 class _UserScreenState extends State<UserScreen> {
+
+  User user;
+
+  Future<void> init() async {
+    user = Provider.of<User>(context, listen: false);
+    if (mounted) {
+      setState(() {});
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    init();
+  }
+
   @override
   Widget build(BuildContext context) {
+        
+    
     return Container(
       width: MediaQuery.of(context).size.width,
       height: MediaQuery.of(context).size.height,
@@ -25,9 +48,8 @@ class _UserScreenState extends State<UserScreen> {
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               image: DecorationImage(
-                  fit: BoxFit.fill,
-                  image: NetworkImage(
-                      'https://images.unsplash.com/photo-1561438484-8337264280c3?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=486&q=80')),
+                  fit: BoxFit.cover,
+                  image: NetworkImage(env.API_URL+(user?.imageUrl ?? 'uploads/user_images/default.jpg'))),
             ),
           ),
           Container(
@@ -86,6 +108,7 @@ class _UserScreenState extends State<UserScreen> {
                     ),),
                     trailing: Icon(Feather.chevron_right, color: Color(0xff2E965B),),
                     onTap: () {
+                      AuthService().clearLoggedState();
                       Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => LoginScreen()), (route) => false);
                     },
                   ),

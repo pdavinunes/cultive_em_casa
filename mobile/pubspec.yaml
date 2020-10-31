@@ -16,6 +16,11 @@ dependencies:
   flutter_icons: ^1.1.0
   image_picker: ^0.6.7+4
   dio: any
+  provider: ^4.3.2+2
+  shared_preferences: ^0.5.12
+  searchable_dropdown: ^1.1.3
+  geolocator: ^6.1.0
+  geocoding: ^1.0.5
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

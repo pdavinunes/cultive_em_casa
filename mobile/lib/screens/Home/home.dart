@@ -30,9 +30,9 @@ class _HomeScreenState extends State<HomeScreen> {
               padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
               child: Row(
                 children: <Widget>[
-                  PlantCard(Plant("Mudinha")),
-                  PlantCard(Plant("Cactus Jake")),
-                  PlantCard(Plant("Jubileu")),
+                  PlantCard(Plant(popularName: "Mudinha")),
+                  PlantCard(Plant(popularName: "Cactus Jake")),
+                  PlantCard(Plant(popularName: "Jubileu")),
                 ],
               ),
             ),
