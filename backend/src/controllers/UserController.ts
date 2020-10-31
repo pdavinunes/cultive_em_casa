@@ -24,7 +24,7 @@ class UserController {
   async store(req: Request, res: Response) {
     const { name, username, password, email } = req.body;
     const user = new User(name, email, username, password, req.file.filename);
-
+    
     const resultStore = (await service.store(user)) as Result;
 
     return res.status(resultStore.status).json({ ...resultStore });

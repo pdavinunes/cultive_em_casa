@@ -29,8 +29,8 @@ class UserService {
     }
   }
 
-  async store(user: User): Promise<object> {
-    const checkUser = await this._findUserByUsername(user.username);
+  async store(user: Partial<User>): Promise<object> {
+    const checkUser = await this._findUserByUsername(user.username as string);
     if (!!checkUser) {
       return { status: 401, erro: "Usuario já existe" };
     } else {
@@ -39,6 +39,8 @@ class UserService {
       const insertedIds = await trx("users").insert(user).returning("id");
 
       await trx.commit();
+
+      delete user.password;
 
       const storedUser = {
         status: 201,
