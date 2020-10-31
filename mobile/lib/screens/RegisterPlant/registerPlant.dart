@@ -1,4 +1,3 @@
-import 'package:cultive/services/auth_service.dart';
 import 'package:cultive/services/plant_service.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:flutter/cupertino.dart';
