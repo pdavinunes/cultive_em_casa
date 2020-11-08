@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "prestart": "knex --knexfile knexfile.ts migrate:rollback --all && knex --knexfile knexfile.ts migrate:latest && knex --knexfile knexfile.ts seed:run",
+    "build": "knex --knexfile knexfile.ts migrate:rollback --all && knex --knexfile knexfile.ts migrate:latest && knex --knexfile knexfile.ts seed:run",
     "start": "ts-node src/server.ts",
     "dev": "ts-node-dev --transpileOnly --ignore-watch node_modules src/server.ts",
     "knex:migrate": "knex --knexfile knexfile.ts migrate:latest",
