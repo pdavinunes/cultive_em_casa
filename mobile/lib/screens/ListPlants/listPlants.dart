@@ -1,3 +1,4 @@
+import 'package:cultive/models/plant.dart';
 import 'package:cultive/services/plant_service.dart';
 import 'package:cultive/widgets/Plants/PlantListTile.dart';
 import 'package:flutter/material.dart';
@@ -9,6 +10,23 @@ class ListPlants extends StatefulWidget {
 }
 
 class _ListPlantsState extends State<ListPlants> {
+
+  List<Plant> plantsPerUser;
+
+  _getPlants() async {
+    final response = await PlantService().plantsUser();
+    setState((){
+      plantsPerUser = response['plants_per_user'].cast<Plant>();
+    });
+  }
+
+
+  @override
+  void initState(){
+    super.initState();
+    _getPlants();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,22 +43,29 @@ class _ListPlantsState extends State<ListPlants> {
             child: Icon(Feather.x, color: Colors.grey.shade400)),
         backgroundColor: Colors.white,
       ),
-      body: SingleChildScrollView(
+      body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 30, vertical: 30),
-        child: FutureBuilder<Object>(
-          future: PlantService().plantsUser(),
-          builder: (context, snapshot) {
-            print(snapshot);
-            return Column(
-              children: <Widget>[
-                PlantListTile('Mudinha'),
-                PlantListTile('Cactus Jake'),
-                PlantListTile('Jubileu'),
-              ],
-            );
-          }
-        ),
+        child: _buildListPlants()
       ),
     );
   }
+
+  Widget _buildListPlants() { 
+    return ListView.builder(
+      itemCount: plantsPerUser?.length ?? 0,
+      itemBuilder: (context, index) {
+        final plant = plantsPerUser[index];
+        return PlantListTile(plant?.popularName ?? '');
+      }
+    );
+  }
+}
+
+class ResponsePlantsModel {
+  String status;
+  String message;
+  List<Plant> plantsPerUser; 
+
+  ResponsePlantsModel({this.status, this.message = '', this.plantsPerUser});
+  
 }
