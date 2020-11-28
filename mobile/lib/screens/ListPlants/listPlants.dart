@@ -16,7 +16,9 @@ class _ListPlantsState extends State<ListPlants> {
   _getPlants() async {
     final response = await PlantService().plantsUser();
     setState((){
-      plantsPerUser = response['plants_per_user'].cast<Plant>();
+      if(response != null) {
+        plantsPerUser = response['plants_per_user'].cast<Plant>();
+      }
     });
   }
 
@@ -45,7 +47,7 @@ class _ListPlantsState extends State<ListPlants> {
       ),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 30, vertical: 30),
-        child: _buildListPlants()
+        child: plantsPerUser == null ? _buildEmptyList() : _buildListPlants()
       ),
     );
   }
@@ -58,6 +60,10 @@ class _ListPlantsState extends State<ListPlants> {
         return PlantListTile(plant?.popularName ?? '');
       }
     );
+  }
+  
+  Widget _buildEmptyList() { 
+    return Container(child: Text('sem plantas irmão'));
   }
 }
 
