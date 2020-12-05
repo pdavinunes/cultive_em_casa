@@ -3,9 +3,74 @@
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="NONE" />
   </component>
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:heroku" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:dependabot" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:dependabot" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:npm_and_yarn" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:dependabot" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:npm_and_yarn" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:backend" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="72dd8542-d743-4988-8023-a44811d4bd74" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/lib/screens/ListPlants/listPlants.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/ListPlants/listPlants.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/Home/home.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/home.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/ListPlants/listPlants.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/list_plants.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/Login/login.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/login.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/Navigation/navigation.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/navigation.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/NotFound/notFound.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/not_found.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/Offline/offline.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/offline.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/Plant/plant.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/plant.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/RegisterPlant/registerPlant.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/register_plant.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/RegisterUser/registerUser.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/register_user.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/User/user.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/user.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/widgets/Plants/Action.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/widgets/plants/action.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/widgets/Plants/PlantCard.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/widgets/plants/plant_card.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/widgets/Plants/PlantListTile.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/widgets/plants/plant_list_tile.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/widgets/Plants/VisaoGeral.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/widgets/plants/overview.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/widgets/utils/CustomColor.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/widgets/commos/custom_color.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/widgets/utils/CustomFloatingButton.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/widgets/commos/custom_floating_button.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/widgets/utils/CustomGridList.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/widgets/commos/custom_grid_list.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/widgets/utils/MyBehavior.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/widgets/commos/my_behavior.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -29,6 +94,11 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="flutter.settings" />
     <property name="show.migrate.to.gradle.popup" value="false" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/lib/screens" />
+    </key>
   </component>
   <component name="SvnConfiguration">
     <configuration />

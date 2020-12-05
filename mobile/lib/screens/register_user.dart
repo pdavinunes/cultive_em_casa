@@ -1,5 +1,5 @@
 import 'package:cultive/models/user.dart';
-import 'package:cultive/screens/Navigation/navigation.dart';
+import 'package:cultive/screens/navigation.dart';
 import 'package:cultive/services/user_service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

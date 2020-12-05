@@ -1,6 +1,6 @@
 import 'package:cultive/models/user.dart';
-import 'package:cultive/screens/Login/login.dart';
-import 'package:cultive/screens/NotFound/notFound.dart';
+import 'package:cultive/screens/login.dart';
+import 'package:cultive/screens/not_found.dart';
 import 'package:cultive/services/auth_service.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:flutter/material.dart';

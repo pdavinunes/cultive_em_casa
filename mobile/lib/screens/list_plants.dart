@@ -1,6 +1,6 @@
 import 'package:cultive/models/plant.dart';
 import 'package:cultive/services/plant_service.dart';
-import 'package:cultive/widgets/Plants/PlantListTile.dart';
+import 'package:cultive/widgets/plants/plant_list_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 

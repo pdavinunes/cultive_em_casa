@@ -1,13 +1,13 @@
 import 'package:cultive/models/plant.dart';
-import 'package:cultive/widgets/utils/CustomFloatingButton.dart';
-import 'package:cultive/widgets/utils/CustomGridList.dart';
+import 'package:cultive/widgets/commons/custom_floating_button.dart';
+import 'package:cultive/widgets/commons/custom_grid_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 
-class VisaoGeral extends StatelessWidget {
+class Overview extends StatelessWidget {
   final Plant plant;
 
-  const VisaoGeral(this.plant);
+  const Overview(this.plant);
 
   @override
   Widget build(BuildContext context) {

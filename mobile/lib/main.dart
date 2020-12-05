@@ -1,10 +1,10 @@
-import 'package:cultive/screens/Navigation/navigation.dart';
-import 'package:cultive/screens/Offline/offline.dart';
+import 'package:cultive/screens/navigation.dart';
+import 'package:cultive/screens/offline.dart';
 import 'package:cultive/services/auth_service.dart';
-import 'package:cultive/widgets/utils/MyBehavior.dart';
+import 'package:cultive/widgets/commons/my_behavior.dart';
 import 'package:flutter/material.dart';
-import 'package:cultive/screens/Login/login.dart';
-import 'package:cultive/widgets/utils/CustomColor.dart';
+import 'package:cultive/screens/login.dart';
+import 'package:cultive/widgets/commons/custom_color.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 

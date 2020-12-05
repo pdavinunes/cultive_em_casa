@@ -1,6 +1,6 @@
 import 'package:cultive/models/plant.dart';
-import 'package:cultive/widgets/Plants/Action.dart';
-import 'package:cultive/widgets/Plants/VisaoGeral.dart';
+import 'package:cultive/widgets/plants/action.dart';
+import 'package:cultive/widgets/plants/overview.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 
@@ -55,7 +55,7 @@ class _PlantPageState extends State<PlantPage> {
                 Expanded(
                   child: Container(
                     child: TabBarView(children: [
-                      VisaoGeral(this.plant),
+                      Overview(this.plant),
                       ActionPage(ActionPageTypes.Regar),
                       ActionPage(ActionPageTypes.Podar),
                       ActionPage(ActionPageTypes.Adubar),
