@@ -11,13 +11,13 @@ class ListPlants extends StatefulWidget {
 
 class _ListPlantsState extends State<ListPlants> {
 
-  List<Plant> plantsPerUser;
+  List<dynamic> plantsPerUser;
 
   _getPlants() async {
     final response = await PlantService().plantsUser();
     setState((){
       if(response != null) {
-        plantsPerUser = response['plants_per_user'].cast<Plant>();
+        plantsPerUser = response['plants_per_user'];
       }
     });
   }
@@ -57,7 +57,7 @@ class _ListPlantsState extends State<ListPlants> {
       itemCount: plantsPerUser?.length ?? 0,
       itemBuilder: (context, index) {
         final plant = plantsPerUser[index];
-        return PlantListTile(plant?.popularName ?? '');
+        return PlantListTile(plant['name'] ?? '');
       }
     );
   }
