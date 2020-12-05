@@ -175,7 +175,6 @@ class _RegisterPlantState extends State<RegisterPlant> {
       _showSnackBar(context, "Prencha todos os campos");
       return;
     }
-    print(selectedValue);
     final _service = PlantService();
     await _service
         .storePlant(

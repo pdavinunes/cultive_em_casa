@@ -25,7 +25,7 @@ class _PlantPageState extends State<PlantPage> {
     return Scaffold(
         appBar: AppBar(
           title: Text(
-            this.plant.popularName,
+            this.plant.name,
             style: TextStyle(
                 fontFamily: 'OpenSans', color: Color(0xff272727), fontSize: 22),
           ),

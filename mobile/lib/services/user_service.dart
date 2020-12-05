@@ -19,7 +19,8 @@ class UserService extends BaseApiService{
     "email": email,
     "password": password,
     "image": await MultipartFile.fromFile(file.path ,filename: file.path.split('/').last),
-});
+    });
+
     return await api.post('users', data: formData).then((response) {
       AuthService().saveAssinante(User.fromMap(response.data['user']));
       return User.fromMap(response.data['user']);

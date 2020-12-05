@@ -13,8 +13,8 @@ class RegisterUser extends StatefulWidget {
 }
 
 class _RegisterUserState extends State<RegisterUser> {
-  bool passwordVisibility = false;
-  bool passwordConfirmVisibility = false;
+  bool passwordVisibility = true;
+  bool passwordConfirmVisibility = true;
 
   TextEditingController nome = TextEditingController();
   TextEditingController username = TextEditingController();
@@ -229,11 +229,11 @@ class _RegisterUserState extends State<RegisterUser> {
           email: email.text,
           password: password.text,
         )
-        .then((user) => {
-              user != null
+        .then((user) {
+              return user != null
                   ? _storeUserAndNavigate(user, context)
                   : _showSnackBar(
-                      context, 'Problema inesperado, tente mais tarde!')
+                      context, 'Problema inesperado, tente mais tarde!');
             });
   }
 

@@ -123,10 +123,7 @@ class ActionPage extends StatelessWidget {
             Divider(),
             SizedBox(height: 20),
             CustomGridList(_historyAction, [
-              '15/06/2020 - 10:00',
-              '12/06/2020 - 10:00',
-              '14/06/2020 - 10:00',
-              '10/06/2020 - 10:00'
+              'Sem histórico... ',
             ])
           ],
         ),
