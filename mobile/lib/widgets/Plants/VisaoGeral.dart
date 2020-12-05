@@ -31,7 +31,7 @@ class VisaoGeral extends StatelessWidget {
                 child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      Text("\u{2600} Muita Luz",
+                      Text("\u{2600} ${plant.lightness}",
                           style: TextStyle(
                               color: Color(0xff297F4E), fontSize: 12)),
                       Text("\u{1F321} 20 - 25 º",
@@ -46,56 +46,58 @@ class VisaoGeral extends StatelessWidget {
               width: 1 / 0,
               padding: EdgeInsets.symmetric(horizontal: 20),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
-                  Container(
-                    height: 120,
-                    width: 60,
-                    child: Image.network(
-                      "http://10.0.2.2:3333/uploads/avatar_plants/avatar1.png",
+                  Expanded(
+                    flex: 2,
+                    child: Container(
+                      height: 120,
+                      width: 60,
+                      child: Image.network(
+                        "http://10.0.2.2:3333/uploads/avatar_plants/avatar1.png",
+                      ),
                     ),
                   ),
                   SizedBox(
                     width: 20,
                   ),
-                  Flexible(
-                      flex: 1,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: <Widget>[
-                          Text(
-                            'Nome Popular',
+                  Expanded(
+                    flex: 3,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: <Widget>[
+                        Text(
+                          'Nome Popular',
+                          style:
+                              TextStyle(color: Color(0xff297F4E), fontSize: 12),
+                        ),
+                        Text(plant.popularName,
                             style: TextStyle(
-                                color: Color(0xff297F4E), fontSize: 12),
-                          ),
-                          Text('Dedo de Moça',
-                              style: TextStyle(
-                                  color: Color(0xff297F4E),
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w600)),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          Text(
-                            'Nome Ciêntifico',
+                                color: Color(0xff297F4E),
+                                fontSize: 14,
+                                fontWeight: FontWeight.w600)),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Text(
+                          'Nome Ciêntifico',
+                          style:
+                              TextStyle(color: Color(0xff297F4E), fontSize: 12),
+                        ),
+                        Text(plant.scientificName,
                             style: TextStyle(
-                                color: Color(0xff297F4E), fontSize: 12),
-                          ),
-                          Text('Sedum rurotinchtruom Dentre',
-                              style: TextStyle(
-                                  color: Color(0xff297F4E),
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w600)),
-                        ],
-                      )),
+                                color: Color(0xff297F4E),
+                                fontSize: 14,
+                                fontWeight: FontWeight.w600)),
+                      ],
+                    ),
+                  ),
                 ],
               ),
             ),
-            _buildSection('Mais informações',
-                'As samambaias são vegetais vasculares membros do táxon das pteridófitas (que deixou de ter validade taxonômica e só é utilizado como uma denominação informal). Elas possuem tecidos vasculares (xilema e floema), folhas verdadeiras, se reproduzem através de esporos e não produzem sementes ou flores. A diversificação das samambaias parece ter ocorrido no Devoniano (há mais de 400 milhões de anos). Elas foram essenciais na ocupação dos ambientes terrestres pelos animais, fornecendo habitat e alimento além de serem importantes na formação do solo rico em nutrientes que viria a propiciar a formação das grandes florestas do carbonífero. Neste período as samambaias e as licófitas eram as principais representantes vegetais do planeta.'),
-            _buildSection('Observações',
-                'Molhar o solo e espirrar água nas folhas. Evite regar as folhas.'),
+            _buildSection('Mais informações', plant.description),
+            _buildSection('Observações', plant.comments),
             CustomGridList(
                 'Fertilizantes', ['Farinha de osso', 'Torta de mamona']),
             CustomGridList('Melhores ambientes',
@@ -125,7 +127,11 @@ class VisaoGeral extends StatelessWidget {
                   margin: const EdgeInsets.fromLTRB(30, 20, 30, 10),
                   child: CustomFloatingButton(
                     Color(0xff6ACC91),
-                    Icon(Feather.edit, size: 30, color: Colors.white,),
+                    Icon(
+                      Feather.edit,
+                      size: 30,
+                      color: Colors.white,
+                    ),
                     null,
                   ),
                 )
