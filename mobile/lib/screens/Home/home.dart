@@ -1,5 +1,6 @@
 import 'package:cultive/models/plant.dart';
 import 'package:cultive/screens/ListPlants/listPlants.dart';
+import 'package:cultive/services/plant_service.dart';
 import 'package:cultive/widgets/Plants/PlantCard.dart';
 import 'package:flutter/material.dart';
 
@@ -9,6 +10,23 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  List<dynamic> plantsPerUser;
+
+  _getPlants() async {
+    final response = await PlantService().plantsUser();
+    setState(() {
+      if (response != null) {
+        plantsPerUser = response['plants_per_user'];
+      }
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _getPlants();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -25,23 +43,23 @@ class _HomeScreenState extends State<HomeScreen> {
                     fontWeight: FontWeight.w600,
                     fontSize: 10,
                     color: Color(0xff266E46))),
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-              child: Row(
-                children: <Widget>[
-                  PlantCard(Plant(popularName: "Mudinha")),
-                  PlantCard(Plant(popularName: "Cactus Jake")),
-                  PlantCard(Plant(popularName: "Jubileu")),
-                ],
-              ),
+            Container(
+              height: 180,
+              child: ListView.builder(
+                  itemCount: plantsPerUser?.length ?? 0,
+                  scrollDirection: Axis.horizontal,
+                  itemBuilder: (context, index) {
+                    final plant = Plant.fromMap(plantsPerUser[index]);
+                    return PlantCard(plant);
+                  }),
             ),
             Container(
                 width: double.infinity,
                 padding: EdgeInsets.only(right: 25),
                 child: GestureDetector(
                   onTap: () {
-                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => ListPlants()));
+                    Navigator.of(context).push(
+                        MaterialPageRoute(builder: (context) => ListPlants()));
                   },
                   child: Text(
                     "ver todas as plantas",
