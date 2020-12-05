@@ -45,15 +45,34 @@ class _HomeScreenState extends State<HomeScreen> {
                     color: Color(0xff266E46))),
             Container(
               height: 180,
-              child: ListView.builder(
-                  itemCount: plantsPerUser?.length ?? 0,
-                  scrollDirection: Axis.horizontal,
-                  itemBuilder: (context, index) {
-                    final plant = Plant.fromMap(plantsPerUser[index]);
-                    return PlantCard(plant);
-                  }),
+              child: plantsPerUser == null
+                  ? Center(
+                      child: Column(
+                        children: [
+                          Image.asset(
+                            'lib/assets/images/404.png',
+                            height: 125,
+                            width: 175,
+                          ),
+                          Text('Sem plantas cadastras :( ',
+                          style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w600,
+                    ),
+                          )
+                        ],
+                      ),
+                    )
+                  : ListView.builder(
+                      itemCount: plantsPerUser?.length ?? 0,
+                      scrollDirection: Axis.horizontal,
+                      itemBuilder: (context, index) {
+                        final plant = Plant.fromMap(plantsPerUser[index]);
+                        return PlantCard(plant);
+                      }),
             ),
-            Container(
+            if(plantsPerUser != null) Container(
                 width: double.infinity,
                 padding: EdgeInsets.only(right: 25),
                 child: GestureDetector(

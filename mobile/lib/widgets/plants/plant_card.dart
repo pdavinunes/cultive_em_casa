@@ -30,7 +30,7 @@ class PlantCard extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text(this.plant.popularName,
+              Text(this.plant.name,
                   style: TextStyle(
                       color: Color(0xff272727),
                       fontWeight: FontWeight.bold,
