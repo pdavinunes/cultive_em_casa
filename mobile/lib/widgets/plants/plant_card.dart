@@ -1,5 +1,5 @@
 import 'package:cultive/models/plant.dart';
-import 'package:cultive/screens/Plant/plant.dart';
+import 'package:cultive/screens/plant.dart';
 import 'package:flutter/material.dart';
 
 class PlantCard extends StatelessWidget {

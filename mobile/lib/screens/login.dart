@@ -2,8 +2,8 @@ import 'package:cultive/models/user.dart';
 import 'package:cultive/services/auth_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
-import 'package:cultive/screens/RegisterUser/registerUser.dart';
-import 'package:cultive/screens/Navigation/navigation.dart';
+import 'package:cultive/screens/register_user.dart';
+import 'package:cultive/screens/navigation.dart';
 import 'package:provider/provider.dart';
 
 class LoginScreen extends StatefulWidget {

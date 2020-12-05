@@ -3,9 +3,9 @@ import 'package:cultive/services/auth_service.dart';
 import 'package:cultive/services/user_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
-import 'package:cultive/screens/Home/home.dart';
-import 'package:cultive/screens/User/user.dart';
-import 'package:cultive/screens/RegisterPlant/registerPlant.dart';
+import 'package:cultive/screens/home.dart';
+import 'package:cultive/screens/user.dart';
+import 'package:cultive/screens/register_plant.dart';
 import 'package:provider/provider.dart';
 
 class NavigationScreen extends StatefulWidget {

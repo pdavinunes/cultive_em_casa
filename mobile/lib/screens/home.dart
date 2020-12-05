@@ -1,7 +1,7 @@
 import 'package:cultive/models/plant.dart';
-import 'package:cultive/screens/ListPlants/listPlants.dart';
+import 'package:cultive/screens/list_plants.dart';
 import 'package:cultive/services/plant_service.dart';
-import 'package:cultive/widgets/Plants/PlantCard.dart';
+import 'package:cultive/widgets/plants/plant_card.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
