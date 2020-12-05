@@ -45,8 +45,10 @@ class UserService {
       const storedUser = {
         status: 201,
         message: "Usuário adicionado com sucesso",
-        id: insertedIds[0],
-        user: this._addUrlInUser(user),
+        user: {
+          id: insertedIds[0],
+          ...this._addUrlInUser(user)
+        },
       };
 
       return storedUser;
