@@ -56,9 +56,9 @@ class _PlantPageState extends State<PlantPage> {
                   child: Container(
                     child: TabBarView(children: [
                       Overview(this.plant),
-                      ActionPage(ActionPageTypes.Regar),
-                      ActionPage(ActionPageTypes.Podar),
-                      ActionPage(ActionPageTypes.Adubar),
+                      ActionPage(ActionPageTypes.Regar, this.plant),
+                      ActionPage(ActionPageTypes.Podar, this.plant),
+                      ActionPage(ActionPageTypes.Adubar, this.plant),
                     ]),
                   ),
                 )

@@ -11,4 +11,7 @@ class BaseApiService {
   
   Dio get api => _api.apiClient;
 
+  String getImage(String image) {
+    return _api.options.baseUrl+image;
+  }
 }

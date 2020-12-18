@@ -5,8 +5,6 @@ import 'package:dio/dio.dart';
 import 'package:image_picker/image_picker.dart';
 
 class PlantService extends BaseApiService {
-
-
   Future<dynamic> storePlant(
       {PickedFile file,
       String nome,
@@ -48,5 +46,9 @@ class PlantService extends BaseApiService {
         .then((response) =>
             response.data['plants'].map((plant) => Plant.fromMap(plant)))
         .catchError((e) => print(e));
+  }
+
+  Future<dynamic> action({String id, String action}) async {
+    return await api.put('user-plants/$id/action', data: {'action': action});
   }
 }

@@ -1,9 +1,11 @@
+import 'package:cultive/providers/change_provider.dart';
 import 'package:cultive/services/plant_service.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
 import 'package:searchable_dropdown/searchable_dropdown.dart';
 import 'package:geocoding/geocoding.dart';
 
@@ -183,7 +185,10 @@ class _RegisterPlantState extends State<RegisterPlant> {
           latitude: userPosition.latitude.toString(),
           longitude: userPosition.longitude.toString(),
           nome: nickname.text
-        ).then((value) => print(value));
+        ).then((value) {
+          Provider.of<ChangeProvider>(context, listen: false).refresh();
+          Navigator.of(context).pop();
+        });
   }
 
   _showSnackBar(BuildContext context, String text) {

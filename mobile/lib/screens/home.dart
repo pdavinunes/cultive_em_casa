@@ -1,8 +1,10 @@
 import 'package:cultive/models/plant.dart';
+import 'package:cultive/providers/change_provider.dart';
 import 'package:cultive/screens/list_plants.dart';
 import 'package:cultive/services/plant_service.dart';
 import 'package:cultive/widgets/plants/plant_card.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -12,19 +14,9 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   List<dynamic> plantsPerUser;
 
-  _getPlants() async {
-    final response = await PlantService().plantsUser();
-    setState(() {
-      if (response != null) {
-        plantsPerUser = response['plants_per_user'];
-      }
-    });
-  }
-
   @override
   void initState() {
     super.initState();
-    _getPlants();
   }
 
   @override
@@ -45,52 +37,66 @@ class _HomeScreenState extends State<HomeScreen> {
                     color: Color(0xff266E46))),
             Container(
               height: 180,
-              child: plantsPerUser == null
-                  ? Center(
-                      child: Column(
-                        children: [
-                          Image.asset(
-                            'lib/assets/images/404.png',
-                            height: 125,
-                            width: 175,
+              child: Consumer<ChangeProvider>(builder: (context, __, _) {
+                return Consumer<PlantService>(builder: (context, service, _) {
+                  return FutureBuilder<dynamic>(
+                    future: service.plantsUser(),
+                    builder: (_, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting ||
+                          snapshot.data == null) {
+                        Center(
+                          child: Column(
+                            children: [
+                              Image.asset(
+                                'lib/assets/images/404.png',
+                                height: 125,
+                                width: 175,
+                              ),
+                              Text(
+                                'Sem plantas cadastras :( ',
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              )
+                            ],
                           ),
-                          Text('Sem plantas cadastras :( ',
-                          style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 14,
-                      fontWeight: FontWeight.w600,
-                    ),
-                          )
-                        ],
-                      ),
-                    )
-                  : ListView.builder(
-                      itemCount: plantsPerUser?.length ?? 0,
-                      scrollDirection: Axis.horizontal,
-                      itemBuilder: (context, index) {
-                        final plant = Plant.fromMap(plantsPerUser[index]);
-                        return PlantCard(plant);
-                      }),
+                        );
+                      }
+                      plantsPerUser = snapshot.data['plants_per_user'];
+                      return ListView.builder(
+                          itemCount: plantsPerUser.length ?? 0,
+                          scrollDirection: Axis.horizontal,
+                          itemBuilder: (context, index) {
+                            final plant = Plant.fromMap(plantsPerUser[index]);
+                            return PlantCard(plant);
+                          });
+                    },
+                  );
+                });
+              }),
             ),
-            if(plantsPerUser != null) Container(
-                width: double.infinity,
-                padding: EdgeInsets.only(right: 25),
-                child: GestureDetector(
-                  onTap: () {
-                    Navigator.of(context).push(
-                        MaterialPageRoute(builder: (context) => ListPlants()));
-                  },
-                  child: Text(
-                    "ver todas as plantas",
-                    textAlign: TextAlign.end,
-                    style: TextStyle(
-                      color: Color(0xff266E46),
-                      fontSize: 11,
-                      fontWeight: FontWeight.w600,
-                      decoration: TextDecoration.underline,
+            if (plantsPerUser != null)
+              Container(
+                  width: double.infinity,
+                  padding: EdgeInsets.only(right: 25),
+                  child: GestureDetector(
+                    onTap: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => ListPlants()));
+                    },
+                    child: Text(
+                      "ver todas as plantas",
+                      textAlign: TextAlign.end,
+                      style: TextStyle(
+                        color: Color(0xff266E46),
+                        fontSize: 11,
+                        fontWeight: FontWeight.w600,
+                        decoration: TextDecoration.underline,
+                      ),
                     ),
-                  ),
-                )),
+                  )),
             GestureDetector(
               onTap: () {},
               child: Container(

@@ -1,6 +1,7 @@
 import '../utils/string_extension.dart';
 class Plant {
   int id;
+  int plantId;
   String name;
   String popularName;
   String scientificName;
@@ -16,6 +17,7 @@ class Plant {
 
   Plant({
     this.id,
+    this.plantId,
     this.name,
     this.popularName,
     this.scientificName,
@@ -32,6 +34,7 @@ class Plant {
 
   factory Plant.fromMap(Map<String, dynamic> json) => Plant(
         id: json['id'],
+        plantId: json['pid'],
         name: json['name'],
         popularName: json['popular_name'],
         scientificName: json['scientific_name'],
