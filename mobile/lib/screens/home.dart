@@ -36,15 +36,16 @@ class _HomeScreenState extends State<HomeScreen> {
                     fontSize: 10,
                     color: Color(0xff266E46))),
             Container(
-              height: 180,
+              height: 200,
               child: Consumer<ChangeProvider>(builder: (context, __, _) {
                 return Consumer<PlantService>(builder: (context, service, _) {
                   return FutureBuilder<dynamic>(
                     future: service.plantsUser(),
                     builder: (_, snapshot) {
+                      final response = snapshot.data;
                       if (snapshot.connectionState == ConnectionState.waiting ||
-                          snapshot.data == null) {
-                        Center(
+                          response == null) {
+                        return Center(
                           child: Column(
                             children: [
                               Image.asset(
@@ -64,39 +65,45 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                         );
                       }
-                      plantsPerUser = snapshot.data['plants_per_user'];
-                      return ListView.builder(
-                          itemCount: plantsPerUser.length ?? 0,
-                          scrollDirection: Axis.horizontal,
-                          itemBuilder: (context, index) {
-                            final plant = Plant.fromMap(plantsPerUser[index]);
-                            return PlantCard(plant);
-                          });
+                      plantsPerUser = response['plants_per_user'];
+                      return Column(
+                        children: [
+                          Expanded(
+                            child: ListView.builder(
+                                itemCount: plantsPerUser.length ?? 0,
+                                scrollDirection: Axis.horizontal,
+                                itemBuilder: (context, index) {
+                                  final plant =
+                                      Plant.fromMap(plantsPerUser[index]);
+                                  return PlantCard(plant);
+                                }),
+                          ),
+                          Container(
+                              width: double.infinity,
+                              padding: EdgeInsets.only(right: 25),
+                              child: GestureDetector(
+                                onTap: () {
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (context) => ListPlants()));
+                                },
+                                child: Text(
+                                  "ver todas as plantas",
+                                  textAlign: TextAlign.end,
+                                  style: TextStyle(
+                                    color: Color(0xff266E46),
+                                    fontSize: 11,
+                                    fontWeight: FontWeight.w600,
+                                    decoration: TextDecoration.underline,
+                                  ),
+                                ),
+                              )),
+                        ],
+                      );
                     },
                   );
                 });
               }),
             ),
-            if (plantsPerUser != null)
-              Container(
-                  width: double.infinity,
-                  padding: EdgeInsets.only(right: 25),
-                  child: GestureDetector(
-                    onTap: () {
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => ListPlants()));
-                    },
-                    child: Text(
-                      "ver todas as plantas",
-                      textAlign: TextAlign.end,
-                      style: TextStyle(
-                        color: Color(0xff266E46),
-                        fontSize: 11,
-                        fontWeight: FontWeight.w600,
-                        decoration: TextDecoration.underline,
-                      ),
-                    ),
-                  )),
             GestureDetector(
               onTap: () {},
               child: Container(

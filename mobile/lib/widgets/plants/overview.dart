@@ -1,6 +1,7 @@
 import 'package:cultive/models/plant.dart';
 import 'package:cultive/widgets/commons/custom_floating_button.dart';
 import 'package:cultive/widgets/commons/custom_grid_list.dart';
+import 'package:cultive/widgets/plants/plant_avatar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 
@@ -50,13 +51,7 @@ class Overview extends StatelessWidget {
                 children: <Widget>[
                   Expanded(
                     flex: 2,
-                    child: Container(
-                      height: 120,
-                      width: 60,
-                      child: Image.network(
-                        "http://10.0.2.2:3333/uploads/avatar_plants/avatar1.png",
-                      ),
-                    ),
+                    child: PlantAvatar(),
                   ),
                   SizedBox(
                     width: 20,

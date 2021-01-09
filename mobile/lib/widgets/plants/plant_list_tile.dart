@@ -1,3 +1,4 @@
+import 'package:cultive/widgets/plants/plant_avatar.dart';
 import 'package:flutter/material.dart';
 
 class PlantListTile extends StatelessWidget {
@@ -55,13 +56,7 @@ class PlantListTile extends StatelessWidget {
             ),
             Row(
               children: <Widget>[
-                Container(
-                  height: 150,
-                  width: 70,
-                  child: Image.network(
-                    "http://10.0.2.2:3333/uploads/avatar_plants/avatar1.png",
-                  ),
-                )
+                PlantAvatar(),
               ],
             ),
           ],

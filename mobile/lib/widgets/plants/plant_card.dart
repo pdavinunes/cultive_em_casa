@@ -1,5 +1,6 @@
 import 'package:cultive/models/plant.dart';
 import 'package:cultive/screens/plant.dart';
+import 'package:cultive/widgets/plants/plant_avatar.dart';
 import 'package:flutter/material.dart';
 
 class PlantCard extends StatelessWidget {
@@ -11,8 +12,8 @@ class PlantCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(children: <Widget>[
       GestureDetector(
-        onTap: () => Navigator.of(context)
-            .push(MaterialPageRoute(builder: (context) => PlantPage(this.plant))),
+        onTap: () => Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => PlantPage(this.plant))),
         child: Container(
           width: 170,
           height: 170,
@@ -55,13 +56,7 @@ class PlantCard extends StatelessWidget {
                                   color: Color(0xff297F4E), fontSize: 12)),
                         ],
                       )),
-                  Container(
-                    height: 120,
-                    width: 60,
-                    child: Image.network(
-                      "http://10.0.2.2:3333/uploads/avatar_plants/avatar1.png",
-                    ),
-                  )
+                  PlantAvatar(),
                 ],
               ),
               Text("+ Mais informações",
