@@ -6,26 +6,22 @@ import 'package:flutter_icons/flutter_icons.dart';
 
 class PlantPage extends StatefulWidget {
   final Plant plant;
+  final int initialIndex;
 
-  PlantPage(this.plant);
+  PlantPage(this.plant, {this.initialIndex = 0});
 
   @override
-  _PlantPageState createState() => _PlantPageState(this.plant);
+  _PlantPageState createState() => _PlantPageState();
 }
 
 class _PlantPageState extends State<PlantPage> {
-  Plant plant;
-
-  _PlantPageState(Plant plant) {
-    this.plant = plant;
-  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
           title: Text(
-            this.plant.name,
+            widget.plant.name,
             style: TextStyle(
                 fontFamily: 'OpenSans', color: Color(0xff272727), fontSize: 22),
           ),
@@ -39,6 +35,7 @@ class _PlantPageState extends State<PlantPage> {
         backgroundColor: Colors.white,
         body: DefaultTabController(
             length: 4,
+            initialIndex: widget.initialIndex,
             child: Column(
               children: <Widget>[
                 Container(
@@ -55,10 +52,10 @@ class _PlantPageState extends State<PlantPage> {
                 Expanded(
                   child: Container(
                     child: TabBarView(children: [
-                      Overview(this.plant),
-                      ActionPage(ActionPageTypes.Regar, this.plant),
-                      ActionPage(ActionPageTypes.Podar, this.plant),
-                      ActionPage(ActionPageTypes.Adubar, this.plant),
+                      Overview(widget.plant),
+                      ActionPage(ActionPageTypes.Regar, widget.plant),
+                      ActionPage(ActionPageTypes.Podar, widget.plant),
+                      ActionPage(ActionPageTypes.Adubar, widget.plant),
                     ]),
                   ),
                 )
@@ -68,10 +65,10 @@ class _PlantPageState extends State<PlantPage> {
 
   List<Widget> _buildTabs() {
     return [
-      Tab(child: Text('Geral', style: TextStyle(color: Color(0xff297F4E)))),
-      Tab(child: Text('Regar', style: TextStyle(color: Color(0xff297F4E)))),
-      Tab(child: Text('Podar', style: TextStyle(color: Color(0xff297F4E)))),
-      Tab(child: Text('Adubar', style: TextStyle(color: Color(0xff297F4E)))),
+      Tab(child: FittedBox(child: Text('Geral', style: TextStyle(color: Color(0xff297F4E))))),
+      Tab(child: FittedBox(child: Text('Regar', style: TextStyle(color: Color(0xff297F4E))))),
+      Tab(child: FittedBox(child: Text('Podar', style: TextStyle(color: Color(0xff297F4E))))),
+      Tab(child: FittedBox(child: Text('Adubar', style: TextStyle(color: Color(0xff297F4E))))),
     ];
   }
 }

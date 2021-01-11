@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:cultive/providers/change_provider.dart';
 import 'package:cultive/services/plant_service.dart';
 import 'package:geolocator/geolocator.dart';
@@ -15,12 +17,13 @@ class RegisterPlant extends StatefulWidget {
 }
 
 class _RegisterPlantState extends State<RegisterPlant> {
-  
   String addressHintText = 'Clique no botão ao lado';
-  String _messageImage = 'Toque caso queira adicionar uma foto da planta.';
+  Widget _messageImage =
+      FittedBox(child: Text('Toque caso queira adicionar uma foto da planta.'));
   Position userPosition;
   String selectedValue;
-  
+  bool isLoading = false;
+
   TextEditingController nickname = TextEditingController();
   TextEditingController address = TextEditingController();
 
@@ -46,7 +49,15 @@ class _RegisterPlantState extends State<RegisterPlant> {
     final pickedFile = await picker.getImage(source: ImageSource.gallery);
 
     setState(() {
-      _messageImage = "Imagem adicionada!";
+      if (pickedFile != null) {
+        _messageImage = Expanded(
+            child: Image.file(
+          File(pickedFile.path),
+          fit: BoxFit.cover,
+          width: MediaQuery.of(context).size.width,
+          height: 120,
+        ));
+      }
       _image = pickedFile;
     });
   }
@@ -67,128 +78,163 @@ class _RegisterPlantState extends State<RegisterPlant> {
             child: Icon(Feather.x, color: Colors.grey.shade400)),
         backgroundColor: Colors.white,
       ),
-      body: SingleChildScrollView(
-        padding: EdgeInsets.only(top: 20),
-        child: Column(
-          children: [
-            GestureDetector(
-              onTap: getImage,
-              child: Container(
-                height: 120,
-                width: MediaQuery.of(context).size.width,
-                color: Color(0xffD8E5DD),
-                child: Center(
-                    child: Text(_messageImage
-                        )),
+      body: Builder(builder: (context) {
+        return SingleChildScrollView(
+          padding: EdgeInsets.only(top: 20),
+          child: Column(
+            children: [
+              GestureDetector(
+                onTap: getImage,
+                child: Container(
+                  height: 120,
+                  padding: EdgeInsets.all(8.0),
+                  width: MediaQuery.of(context).size.width,
+                  color: Color(0xffD8E5DD),
+                  child: Center(child: _messageImage),
+                ),
               ),
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 40, vertical: 10),
-              child: Column(children: [
-                TextField(
-                  controller: nickname,
-                  decoration:
-                      InputDecoration(labelText: 'Qual o apelido da Planta?'),
-                ),
-                Container(
-                  padding: EdgeInsets.symmetric(vertical: 10),
-                  child: SearchableDropdown.single(
-                      items: items,
-                      value: selectedValue,
-                      icon: Icon(Feather.chevron_down),
-                      hint: "Qual o nome popular da planta?",
-                      searchHint: "Nome popular da planta",
-                      onChanged: (value) {
-                        setState(() {
-                          selectedValue = value.toString().split(' ').last;
-                        });
-                      },
-                      onClear: () {
-                        setState(() {
-                          selectedValue = '';
-                        });
-                      },
-                      isExpanded: true,
-                      closeButton: 'Fechar',
-                      underline: Container(
-                        height: 1.0,
-                        decoration: BoxDecoration(
-                            border: Border(
-                                bottom: BorderSide(
-                                    color: Colors.black12, width: 2.0))),
-                      )),
-                ),
-                TextField(
-                  readOnly: true,
-                  controller: address,
-                  decoration: InputDecoration(
-                      labelText: 'Endereço da plantinha',
-                      hintText: addressHintText,
-                      suffixIcon: IconButton(
-                        icon: Icon(Ionicons.md_locate),
-                        color: Color(0xff297F4E),
-                        onPressed: () async {
-                          List<Placemark> placeMark;
-                          Position position =
-                              await Geolocator.getCurrentPosition(
-                                  desiredAccuracy: LocationAccuracy.high);
-                          placeMark = await placemarkFromCoordinates(
-                              position.latitude, position.longitude);
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 40, vertical: 10),
+                child: Column(children: [
+                  TextField(
+                    controller: nickname,
+                    decoration: InputDecoration(
+                        labelText: '  Qual o apelido da Planta?'),
+                  ),
+                  Container(
+                    padding: EdgeInsets.symmetric(vertical: 10),
+                    child: SearchableDropdown.single(
+                        items: items,
+                        value: selectedValue,
+                        icon: Icon(Feather.chevron_down),
+                        hint: "Qual o nome popular da planta?",
+                        searchHint: "Nome popular da planta",
+                        onChanged: (value) {
                           setState(() {
-                            userPosition = position;
-                            address.text = placeMark[0].subAdministrativeArea  +
-                                ' - ' +
-                                placeMark[0].administrativeArea;
+                            selectedValue = value.toString().split(' ').last;
                           });
                         },
-                      )),
-                ),
-              ]),
-            ),
-            Container(
-              padding: EdgeInsets.all(10),
-              child: RaisedButton(
-                onPressed: () => storePlant(context),
-                child: Text(
-                  'CADASTRAR PLANTA',
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.w600,
-                      fontSize: 16),
-                ),
-                color: Color(0xff297F4E),
-                padding: EdgeInsets.symmetric(horizontal: 100, vertical: 12),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(22)),
+                        onClear: () {
+                          setState(() {
+                            selectedValue = '';
+                          });
+                        },
+                        isExpanded: true,
+                        closeButton: 'Fechar',
+                        underline: Container(
+                          height: 1.0,
+                          decoration: BoxDecoration(
+                              border: Border(
+                                  bottom: BorderSide(
+                                      color: Colors.black12, width: 2.0))),
+                        )),
+                  ),
+                  TextField(
+                    readOnly: true,
+                    controller: address,
+                    decoration: InputDecoration(
+                        labelText: '  Endereço da plantinha',
+                        hintText: addressHintText,
+                        suffixIcon: IconButton(
+                          icon: Icon(Ionicons.md_locate),
+                          color: Color(0xff297F4E),
+                          onPressed: () async {
+                            List<Placemark> placeMark;
+                            Position position =
+                                await Geolocator.getCurrentPosition(
+                                    desiredAccuracy: LocationAccuracy.high);
+                            placeMark = await placemarkFromCoordinates(
+                                position.latitude, position.longitude);
+                            setState(() {
+                              userPosition = position;
+                              address.text =
+                                  placeMark[0].subAdministrativeArea +
+                                      ' - ' +
+                                      placeMark[0].administrativeArea;
+                            });
+                          },
+                        )),
+                  ),
+                ]),
               ),
-            )
-          ],
-        ),
-      ),
+              Container(
+                  height: 40,
+                  width: isLoading ? 40 : 250,
+                  decoration: BoxDecoration(
+                    color: Color(0xff297F4E),
+                    borderRadius: BorderRadius.all(Radius.circular(100)),
+                  ),
+                  margin: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                  padding: EdgeInsets.all(12),
+                  child: isLoading
+                      ? CircularProgressIndicator(
+                          backgroundColor: Colors.white, strokeWidth: 2.0)
+                      : GestureDetector(
+                          onTap: () => storePlant(context),
+                          child: FittedBox(
+                            child: Text(
+                              'CADASTRAR PLANTA',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 16),
+                            ),
+                          ),
+                        ))
+              // Container(
+              //   // padding: EdgeInsets.all(10),
+              //   child: RaisedButton(
+              //     onPressed: () => storePlant(context),
+              //     child: true ? CircularProgressIndicator(backgroundColor: Colors.white, strokeWidth: 2.0) : FittedBox(
+              //                       child:
+              //       ),
+              //     ),
+              //     color: Color(0xff297F4E),
+              //     // padding: EdgeInsets.symmetric(horizontal: 0, vertical: 10),
+              //     shape: RoundedRectangleBorder(
+              //         borderRadius: BorderRadius.circular(50)),
+              //   ),
+              // )
+            ],
+          ),
+        );
+      }),
       backgroundColor: Colors.white,
     );
   }
 
   void storePlant(BuildContext context) async {
-   if (nickname.text == null ||
+    setState(() {
+      isLoading = true;
+    });
+
+    if (nickname.text == null ||
         selectedValue == null ||
         address.text == null ||
         _image == null) {
       _showSnackBar(context, "Prencha todos os campos");
+      setState(() {
+        isLoading = false;
+      });
       return;
     }
     final _service = PlantService();
     await _service
         .storePlant(
-          file: _image,
-          plantId: selectedValue,
-          latitude: userPosition.latitude.toString(),
-          longitude: userPosition.longitude.toString(),
-          nome: nickname.text
-        ).then((value) {
-          Provider.of<ChangeProvider>(context, listen: false).refresh();
-          Navigator.of(context).pop();
-        });
+            file: _image,
+            plantId: selectedValue,
+            latitude: userPosition.latitude.toString(),
+            longitude: userPosition.longitude.toString(),
+            nome: nickname.text)
+        .then((value) {
+      Provider.of<ChangeProvider>(context, listen: false).refresh();
+      Navigator.of(context).pop();
+    }).catchError((e) {
+      _showSnackBar(context, "Ocorreu um problema inesperado");
+      setState(() {
+        isLoading = false;
+      });
+    });
   }
 
   _showSnackBar(BuildContext context, String text) {

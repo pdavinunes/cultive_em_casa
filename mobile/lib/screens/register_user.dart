@@ -61,6 +61,7 @@ class _RegisterUserState extends State<RegisterUser> {
           ),
         ),
       ),
+      backgroundColor: Colors.white,
       body: Builder(
           builder: (context) => SingleChildScrollView(
                 physics: AlwaysScrollableScrollPhysics(),

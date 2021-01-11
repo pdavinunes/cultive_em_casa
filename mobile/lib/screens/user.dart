@@ -42,8 +42,8 @@ class _UserScreenState extends State<UserScreen> {
       child: Column(
         children: <Widget>[
           Container(
-            height: 190.0,
-            width: 200.0,
+            height: MediaQuery.of(context).size.height * 0.25,
+            width: MediaQuery.of(context).size.height * 0.25,
             margin: EdgeInsets.only(bottom: 30),
             decoration: BoxDecoration(
               shape: BoxShape.circle,
@@ -52,8 +52,7 @@ class _UserScreenState extends State<UserScreen> {
                   image: NetworkImage(env.API_URL+(user?.imageUrl ?? 'uploads/user_images/default.jpg'))),
             ),
           ),
-          Container(
-            height: 280,
+          Expanded(
             child: ListView(
               children: <Widget>[
                 Card(

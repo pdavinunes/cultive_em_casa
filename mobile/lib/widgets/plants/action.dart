@@ -1,4 +1,5 @@
 import 'package:cultive/models/plant.dart';
+import 'package:cultive/providers/change_provider.dart';
 import 'package:cultive/services/plant_service.dart';
 import 'package:cultive/widgets/commons/custom_floating_button.dart';
 import 'package:cultive/widgets/commons/custom_grid_list.dart';
@@ -101,7 +102,7 @@ class ActionPage extends StatelessWidget {
         return 'WATERING';
         break;
       case ActionPageTypes.Adubar:
-        return 'FERTILIZION';
+        return 'FERTILIZATION';
         break;
       case ActionPageTypes.Podar:
         return 'PRUNING';
@@ -111,10 +112,26 @@ class ActionPage extends StatelessWidget {
     }
   }
 
-  void _onTap(PlantService service) async {
-    final response = await service.action(
-        id: this.plant.plantId.toString(), action: _getAction().toLowerCase());
-    print(response);
+  void _onTap(PlantService service, BuildContext context) async {
+    await service
+        .action(
+            id: this.plant.plantId.toString(),
+            action: _getAction().toLowerCase())
+        .then((value) {
+          print(value);
+          Provider.of<ChangeProvider>(context, listen: false).refresh();
+          _showSnackBar(context, "Planta atualizada com sucesso");
+    }).catchError((e) => print(e));
+  }
+
+  _showSnackBar(BuildContext context, String text) {
+    final scaffold = Scaffold.of(context);
+    scaffold.showSnackBar(
+      SnackBar(
+        content: Text(text),
+        backgroundColor: Colors.green.shade400,
+      ),
+    );
   }
 
   @override
@@ -172,8 +189,8 @@ class ActionPage extends StatelessWidget {
               ])
             ],
           ),
-          floatingActionButton: CustomFloatingButton(
-              _colorAction, Image.asset(_assetAction), () => _onTap(service)));
+          floatingActionButton: CustomFloatingButton(_colorAction,
+              Image.asset(_assetAction), () => _onTap(service, context)));
     });
   }
 }

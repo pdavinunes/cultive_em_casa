@@ -37,7 +37,7 @@ class MyApp extends StatelessWidget {
         )
       ],
       child: MaterialApp(
-        title: 'Flutter Demo',
+        title: 'Cultive em Casa',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
             primarySwatch: CompanyColors.green, fontFamily: 'Montserrat'),

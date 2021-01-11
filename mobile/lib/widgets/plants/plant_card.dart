@@ -15,8 +15,8 @@ class PlantCard extends StatelessWidget {
         onTap: () => Navigator.of(context).push(
             MaterialPageRoute(builder: (context) => PlantPage(this.plant))),
         child: Container(
-          width: 170,
-          height: 170,
+          width: MediaQuery.of(context).size.height * 0.25,
+          height: MediaQuery.of(context).size.height * 0.25,
           padding: EdgeInsets.all(10),
           margin: EdgeInsets.only(right: 20),
           decoration: BoxDecoration(
@@ -35,35 +35,47 @@ class PlantCard extends StatelessWidget {
                   style: TextStyle(
                       color: Color(0xff272727),
                       fontWeight: FontWeight.bold,
-                      fontSize: 14)),
+                      fontSize: 16)),
               Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
                   Container(
-                      height: 120,
-                      width: 90,
+                      height: MediaQuery.of(context).size.height * 0.18,
+                      width: 80,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: <Widget>[
-                          Text("\u{2600} Muita Luz",
-                              style: TextStyle(
-                                  color: Color(0xff297F4E), fontSize: 12)),
-                          Text("\u{1F321} 20 - 25 º",
-                              style: TextStyle(
-                                  color: Color(0xff297F4E), fontSize: 12)),
-                          Text("\u{1F4A7} Frequente",
-                              style: TextStyle(
-                                  color: Color(0xff297F4E), fontSize: 12)),
+                          FittedBox(
+                            child: Text("\u{2600} ${plant.lightness}",
+                                style: TextStyle(
+                                    color: Color(0xff297F4E), fontSize: 12)),
+                          ),
+                          FittedBox(
+                            child: Text("\u{1F321} 20 - 25 º",
+                                style: TextStyle(
+                                    color: Color(0xff297F4E), fontSize: 12)),
+                          ),
+                          FittedBox(
+                            child: Text("\u{1F4A7} Frequente",
+                                style: TextStyle(
+                                    color: Color(0xff297F4E), fontSize: 12)),
+                          ),
                         ],
                       )),
-                  PlantAvatar(),
+                  PlantAvatar(
+                    height: MediaQuery.of(context).size.height * 0.10,
+                    width: MediaQuery.of(context).size.height * 0.10,
+                  ),
                 ],
               ),
-              Text("+ Mais informações",
-                  style: TextStyle(
-                      color: Color(0xff297F4E),
-                      fontWeight: FontWeight.bold,
-                      fontSize: 8)),
+              FittedBox(
+                child: Text("+ Mais informações",
+                    style: TextStyle(
+                        color: Color(0xff297F4E),
+                        fontWeight: FontWeight.bold,
+                        fontSize: 12)),
+              ),
             ],
           ),
         ),

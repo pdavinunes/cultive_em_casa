@@ -49,6 +49,8 @@ class PlantService extends BaseApiService {
   }
 
   Future<dynamic> action({String id, String action}) async {
+    print(action);
+    print(id);
     return await api.put('user-plants/$id/action', data: {'action': action});
   }
 }

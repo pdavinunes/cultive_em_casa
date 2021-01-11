@@ -1,9 +1,8 @@
 import 'package:cultive/models/plant.dart';
-import 'package:cultive/widgets/commons/custom_floating_button.dart';
 import 'package:cultive/widgets/commons/custom_grid_list.dart';
 import 'package:cultive/widgets/plants/plant_avatar.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_icons/flutter_icons.dart';
+import 'package:cultive/.env.dart' as env; 
 
 class Overview extends StatelessWidget {
   final Plant plant;
@@ -24,8 +23,7 @@ class Overview extends StatelessWidget {
                   shape: BoxShape.rectangle,
                   image: DecorationImage(
                       fit: BoxFit.cover,
-                      image: NetworkImage(
-                          'https://images.unsplash.com/photo-1425736351320-d66d7583fe62?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80')),
+                      image: NetworkImage('${env.API_URL}${plant.imageSrc}')),
                 )),
             Container(
                 margin: EdgeInsets.symmetric(vertical: 10),
@@ -97,41 +95,6 @@ class Overview extends StatelessWidget {
                 'Fertilizantes', ['Farinha de osso', 'Torta de mamona']),
             CustomGridList('Melhores ambientes',
                 ['Garagem', 'Sala de estar', 'Locais fechados']),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    _buildSection('Escala de Cuidado', 'Muito bem Cuidada',
-                        width: 230),
-                    Container(
-                      width: 200,
-                      padding: EdgeInsets.fromLTRB(30, 0, 30, 10),
-                      child: LinearProgressIndicator(
-                        value: 0.9,
-                        backgroundColor: Colors.grey.shade300,
-                        valueColor:
-                            AlwaysStoppedAnimation<Color>(Color(0xff297F4E)),
-                        minHeight: 5,
-                      ),
-                    )
-                  ],
-                ),
-                Container(
-                  margin: const EdgeInsets.fromLTRB(30, 20, 30, 10),
-                  child: CustomFloatingButton(
-                    Color(0xff6ACC91),
-                    Icon(
-                      Feather.edit,
-                      size: 30,
-                      color: Colors.white,
-                    ),
-                    null,
-                  ),
-                )
-              ],
-            ),
           ],
         ),
       ),

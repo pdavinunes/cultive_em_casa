@@ -2,6 +2,7 @@ import 'package:cultive/models/plant.dart';
 import 'package:cultive/providers/change_provider.dart';
 import 'package:cultive/screens/list_plants.dart';
 import 'package:cultive/services/plant_service.dart';
+import 'package:cultive/widgets/commons/action_buttom.dart';
 import 'package:cultive/widgets/plants/plant_card.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -24,7 +25,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Container(
       width: MediaQuery.of(context).size.width,
       height: MediaQuery.of(context).size.height,
-      padding: EdgeInsets.fromLTRB(25, 20, 0, 15),
+      padding: EdgeInsets.fromLTRB(25, 15, 0, 15),
       color: Colors.white,
       child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -35,8 +36,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     fontWeight: FontWeight.w600,
                     fontSize: 10,
                     color: Color(0xff266E46))),
-            Container(
-              height: 200,
+            Expanded( 
               child: Consumer<ChangeProvider>(builder: (context, __, _) {
                 return Consumer<PlantService>(builder: (context, service, _) {
                   return FutureBuilder<dynamic>(
@@ -67,8 +67,10 @@ class _HomeScreenState extends State<HomeScreen> {
                       }
                       plantsPerUser = response['plants_per_user'];
                       return Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          Expanded(
+                          Container(
+                            height: MediaQuery.of(context).size.height * 0.28,
                             child: ListView.builder(
                                 itemCount: plantsPerUser.length ?? 0,
                                 scrollDirection: Axis.horizontal,
@@ -97,6 +99,24 @@ class _HomeScreenState extends State<HomeScreen> {
                                   ),
                                 ),
                               )),
+                          ActionButton(
+                            inititalIndex: 1,
+                            color: const Color(0xff5993C8),
+                            description: 'VAMOS REGAR',
+                            imageSrc: 'regar.png',
+                          ),
+                          ActionButton(
+                            inititalIndex: 2,
+                            color: const Color(0xff6ACC91),
+                            description: 'VAMOS PODAR',
+                            imageSrc: 'podar.png',
+                          ),
+                          ActionButton(
+                            inititalIndex: 3,
+                            color: const Color(0xffC16544),
+                            description: 'VAMOS ADUBAR',
+                            imageSrc: 'adubar.png',
+                          ),
                         ],
                       );
                     },
@@ -104,75 +124,6 @@ class _HomeScreenState extends State<HomeScreen> {
                 });
               }),
             ),
-            GestureDetector(
-              onTap: () {},
-              child: Container(
-                height: 70,
-                margin: EdgeInsets.only(top: 15, right: 25),
-                padding: EdgeInsets.symmetric(horizontal: 25),
-                width: double.infinity,
-                decoration: BoxDecoration(
-                    color: Color(0xff5993C8),
-                    borderRadius: BorderRadius.all(Radius.circular(3))),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    Text("VAMOS REGAR",
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 14,
-                            fontWeight: FontWeight.w600)),
-                    Image.asset("lib/assets/images/regar.png")
-                  ],
-                ),
-              ),
-            ),
-            GestureDetector(
-              onTap: () {},
-              child: Container(
-                height: 70,
-                margin: EdgeInsets.only(top: 15, right: 25),
-                padding: EdgeInsets.symmetric(horizontal: 25),
-                width: double.infinity,
-                decoration: BoxDecoration(
-                    color: Color(0xff6ACC91),
-                    borderRadius: BorderRadius.all(Radius.circular(3))),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    Text("VAMOS PODAR",
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 14,
-                            fontWeight: FontWeight.w600)),
-                    Image.asset("lib/assets/images/podar.png")
-                  ],
-                ),
-              ),
-            ),
-            GestureDetector(
-              onTap: () {},
-              child: Container(
-                height: 70,
-                margin: EdgeInsets.only(top: 15, right: 25),
-                padding: EdgeInsets.symmetric(horizontal: 25),
-                width: double.infinity,
-                decoration: BoxDecoration(
-                    color: Color(0xffC16544),
-                    borderRadius: BorderRadius.all(Radius.circular(3))),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    Text("VAMOS ADUBAR",
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 14,
-                            fontWeight: FontWeight.w600)),
-                    Image.asset("lib/assets/images/adubar.png")
-                  ],
-                ),
-              ),
-            )
           ]),
     );
   }
