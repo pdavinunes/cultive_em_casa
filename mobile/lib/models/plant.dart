@@ -3,6 +3,7 @@ class Plant {
   int id;
   int plantId;
   String name;
+  String imageSrc;
   String popularName;
   String scientificName;
   String lightness;
@@ -18,6 +19,7 @@ class Plant {
   Plant({
     this.id,
     this.plantId,
+    this.imageSrc,
     this.name,
     this.popularName,
     this.scientificName,
@@ -36,6 +38,7 @@ class Plant {
         id: json['id'],
         plantId: json['pid'],
         name: json['name'],
+        imageSrc: _formatImage(json['imageUrl']),
         popularName: json['popular_name'],
         scientificName: json['scientific_name'],
         lightness: _formatLightness(json['lightness']),
@@ -51,5 +54,9 @@ class Plant {
 
   static String _formatLightness(String lightness) {
     return lightness.replaceAll(RegExp(r'_'), ' ').toLowerCase().capitalize();
+  }
+  
+  static String _formatImage(String imageUrl) {
+    return imageUrl.replaceAll(RegExp(r'http://localhost:3333/'), ' ').trim();
   }
 }
