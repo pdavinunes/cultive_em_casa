@@ -22,6 +22,8 @@ dependencies:
   geolocator: ^6.1.0
   geocoding: ^1.0.5
   intl: ^0.16.1
+  flutter_local_notifications: ^3.0.3
+  flutter_native_timezone: ^1.0.4
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

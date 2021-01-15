@@ -5,7 +5,12 @@ import 'package:cultive/services/plant_service.dart';
 import 'package:cultive/widgets/commons/action_buttom.dart';
 import 'package:cultive/widgets/plants/plant_card.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:timezone/data/latest.dart' as tz;
+import 'package:timezone/timezone.dart' as tz;
+import 'package:flutter_native_timezone/flutter_native_timezone.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -14,10 +19,19 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   List<dynamic> plantsPerUser;
+  FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
+  String _timezone = 'Unknonw';
 
   @override
   void initState() {
     super.initState();
+    flutterLocalNotificationsPlugin = new FlutterLocalNotificationsPlugin();
+    var android = new AndroidInitializationSettings('@mipmap/ic_launcher');
+    var iOS = new IOSInitializationSettings();
+    initPlatformState();
+    var initSetttings = new InitializationSettings(android: android, iOS: iOS);
+    flutterLocalNotificationsPlugin.initialize(initSetttings,
+        onSelectNotification: null);
   }
 
   @override
@@ -36,7 +50,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     fontWeight: FontWeight.w600,
                     fontSize: 10,
                     color: Color(0xff266E46))),
-            Expanded( 
+            Expanded(
               child: Consumer<ChangeProvider>(builder: (context, __, _) {
                 return Consumer<PlantService>(builder: (context, service, _) {
                   return FutureBuilder<dynamic>(
@@ -85,8 +99,9 @@ class _HomeScreenState extends State<HomeScreen> {
                               padding: EdgeInsets.only(right: 25),
                               child: GestureDetector(
                                 onTap: () {
-                                  Navigator.of(context).push(MaterialPageRoute(
-                                      builder: (context) => ListPlants()));
+                                  showNotification();
+                                  // Navigator.of(context).push(MaterialPageRoute(
+                                  //     builder: (context) => ListPlants()));
                                 },
                                 child: Text(
                                   "ver todas as plantas",
@@ -126,5 +141,42 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ]),
     );
+  }
+
+  Future<void> initPlatformState() async {
+    String timezone;
+    try {
+      tz.initializeTimeZones();
+      timezone = await FlutterNativeTimezone.getLocalTimezone();
+      tz.setLocalLocation(tz.getLocation(timezone));
+    } on PlatformException {
+      timezone = 'Failed to get the timezone.';
+    }
+  }
+
+  showNotification() async {
+    var android = new AndroidNotificationDetails(
+        'channel id', 'channel NAME', 'CHANNEL DESCRIPTION',
+        priority: Priority.high, importance: Importance.max);
+    var iOS = new IOSNotificationDetails();
+    // const MethodChannel platform =
+    // MethodChannel('dexterx.dev/flutter_local_notifications_example');
+    // var platform = new NotificationDetails(android: android, iOS: iOS);
+    // await flutterLocalNotificationsPlugin.show(
+    //     0, 'New Video is out', 'Flutter Local Notification', platform,
+    //     payload: 'Nitish Kumar Singh is part time Youtuber');
+
+    print('entrei');
+    await flutterLocalNotificationsPlugin.zonedSchedule(
+        0,
+        'Regue sua planta',
+        'Quer deixar ela morrer ó maluco?',
+        tz.TZDateTime.now(tz.local).add(const Duration(seconds: 30)),
+        const NotificationDetails(
+            android: AndroidNotificationDetails('your channel id',
+                'your channel name', 'your channel description')),
+        androidAllowWhileIdle: true,
+        uiLocalNotificationDateInterpretation:
+            UILocalNotificationDateInterpretation.absoluteTime);
   }
 }
