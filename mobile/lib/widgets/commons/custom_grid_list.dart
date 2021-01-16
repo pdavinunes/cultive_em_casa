@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class CustomGridList extends StatelessWidget {
   final String title;
-  final List<String> items;
+  final List<dynamic> items;
 
   CustomGridList(this.title, this.items);
 
@@ -36,7 +36,7 @@ class CustomGridList extends StatelessWidget {
                 padding: EdgeInsets.only(bottom: 5),
                 width: width * 0.4,
                 child: Text(
-                  item,
+                  item.name,
                   style: TextStyle(
                       color: Color(0xff297F4E),
                       fontSize: 14,

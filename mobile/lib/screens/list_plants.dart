@@ -37,7 +37,7 @@ class _ListPlantsState extends State<ListPlants> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Minhas platas',
+          'Minhas plantas',
           style: TextStyle(
               fontFamily: 'OpenSans', color: Color(0xff272727), fontSize: 22),
         ),
@@ -59,20 +59,38 @@ class _ListPlantsState extends State<ListPlants> {
     return ListView.builder(
         itemCount: plantsPerUser?.length ?? 0,
         itemBuilder: (context, index) {
-          final plant = Plant.fromMap(plantsPerUser[index]); 
+          final plant = Plant.fromMap(plantsPerUser[index]);
           return GestureDetector(
             onTap: () => Navigator.of(context).push(MaterialPageRoute(
                 builder: (context) => PlantPage(
                       plant,
                       initialIndex: widget.initialIndex,
                     ))),
-            child: PlantListTile(plant.name ?? ''),
+            child: PlantListTile(plant),
           );
         });
   }
 
   Widget _buildEmptyList() {
-    return Container(child: Text('sem plantas irmão'));
+    return Center(
+      child: Column(
+        children: [
+          Image.asset(
+            'lib/assets/images/404.png',
+            height: 125,
+            width: 175,
+          ),
+          Text(
+            'Sem plantas cadastras :( ',
+            style: TextStyle(
+              color: Colors.black,
+              fontSize: 14,
+              fontWeight: FontWeight.w600,
+            ),
+          )
+        ],
+      ),
+    );
   }
 }
 

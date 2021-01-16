@@ -46,9 +46,9 @@ class _LoginScreenState extends State<LoginScreen> {
                       TextField(
                         controller: email,
                         decoration: InputDecoration(
-                            labelText: 'Email',
+                            labelText: 'Usuário',
                             prefixIcon: Icon(
-                              Feather.mail,
+                              Feather.user,
                               color: Color(0xff2E965B),
                             )),
                       ),

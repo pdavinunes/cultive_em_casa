@@ -55,9 +55,11 @@ class _NavigationScreenState extends State<NavigationScreen> {
                   fontSize: 22)),
           actions: <Widget>[
             IconButton(
-              icon: Icon(Feather.bell),
+              icon: Icon(Feather.refresh_ccw),
               color: Color(0xff272727),
-              onPressed: () {},
+              onPressed: () {
+                init();
+              },
             )
           ],
         ),

@@ -1,4 +1,5 @@
 import 'package:cultive/models/plant.dart';
+import 'package:cultive/models/plant_details.dart';
 import 'package:cultive/providers/change_provider.dart';
 import 'package:cultive/services/plant_service.dart';
 import 'package:cultive/widgets/commons/custom_floating_button.dart';
@@ -185,7 +186,7 @@ class ActionPage extends StatelessWidget {
               Divider(),
               SizedBox(height: 20),
               CustomGridList(_historyAction, [
-                'Sem histórico... ',
+                Environment('Sem histórico...')
               ])
             ],
           ),
