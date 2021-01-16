@@ -15,6 +15,8 @@ class Plant {
   DateTime nextPruning;
   String comments;
   String description;
+  String wateringFrequencyHuman;
+  String wateringFrequencyHumanShort;
 
   Plant({
     this.id,
@@ -32,6 +34,8 @@ class Plant {
     this.nextPruning,
     this.comments,
     this.description,
+    this.wateringFrequencyHuman,
+    this.wateringFrequencyHumanShort
   });
 
   factory Plant.fromMap(Map<String, dynamic> json) => Plant(
@@ -50,6 +54,8 @@ class Plant {
         nextPruning: DateTime.fromMillisecondsSinceEpoch(json['next_pruning']),
         comments: json['comments'],
         description: json['description'],
+        wateringFrequencyHuman: _wateringFrequencyHuman(json['watering_frequency']),
+        wateringFrequencyHumanShort: _wateringFrequencyHumanShort(json['watering_frequency']),
       );
 
   static String _formatLightness(String lightness) {
@@ -58,5 +64,28 @@ class Plant {
   
   static String _formatImage(String imageUrl) {
     return imageUrl.replaceAll(RegExp(r'http://localhost:3333/'), ' ').trim();
+  }
+
+  static String _wateringFrequencyHumanShort(String wateringFrequency) {
+    final duration = Duration(milliseconds: int.parse(wateringFrequency));
+    
+    if (duration.inDays == 1)
+      return '1 dia';
+    
+    return '${duration.inDays} dias';
+  }
+  
+  static String _wateringFrequencyHuman(String wateringFrequency) {
+    final duration = Duration(milliseconds: int.parse(wateringFrequency));
+    
+    if (duration.inDays == 1) {
+        return 'Todo dia';
+    } else if (1 < duration.inDays && duration.inDays < 7) {
+        return 'A cada ${duration.inDays} dias';
+    } else if (duration.inDays == 7) {
+        return 'Semanalmente';
+    } else {
+        return 'Algumas vezes ao mês';
+    }
   }
 }

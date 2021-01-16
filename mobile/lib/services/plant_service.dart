@@ -1,4 +1,5 @@
 import 'package:cultive/models/plant.dart';
+import 'package:cultive/models/plant_details.dart';
 import 'package:cultive/services/auth_service.dart';
 import 'package:cultive/services/base_api_service.dart';
 import 'package:dio/dio.dart';
@@ -45,6 +46,13 @@ class PlantService extends BaseApiService {
         .get('plants/')
         .then((response) =>
             response.data['plants'].map((plant) => Plant.fromMap(plant)))
+        .catchError((e) => print(e));
+  }
+  
+  Future<PlantDetails> show(String plantId) async {
+    return await api
+        .get('plants/$plantId')
+        .then((response) => PlantDetails.fromJson(response.data['result']))
         .catchError((e) => print(e));
   }
 

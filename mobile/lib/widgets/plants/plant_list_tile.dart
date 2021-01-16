@@ -1,10 +1,11 @@
+import 'package:cultive/models/plant.dart';
 import 'package:cultive/widgets/plants/plant_avatar.dart';
 import 'package:flutter/material.dart';
 
 class PlantListTile extends StatelessWidget {
-  final String name;
+  final Plant plant;
 
-  PlantListTile(this.name);
+  PlantListTile(this.plant);
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +28,7 @@ class PlantListTile extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(this.name,
+                Text(this.plant.name,
                     style: TextStyle(
                         color: Color(0xff272727),
                         fontWeight: FontWeight.bold,
@@ -39,12 +40,21 @@ class PlantListTile extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: <Widget>[
-                        Text("\u{2600} Muita Luz   \u{1F321} 20 - 25 º",
-                            style: TextStyle(
-                                color: Color(0xff297F4E), fontSize: 12)),
-                        Text("\u{1F4A7} Frequente",
-                            style: TextStyle(
-                                color: Color(0xff297F4E), fontSize: 12)),
+                        FittedBox(
+                            child: Text("\u{2600} ${plant.lightness}",
+                                style: TextStyle(
+                                    color: Color(0xff297F4E), fontSize: 12)),
+                          ),
+                          FittedBox(
+                            child: Text("\u{1F321} ${plant.popularName}",
+                                style: TextStyle(
+                                    color: Color(0xff297F4E), fontSize: 12)),
+                          ),
+                          FittedBox(
+                            child: Text("\u{1F4A7} ${plant.wateringFrequencyHumanShort}",
+                                style: TextStyle(
+                                    color: Color(0xff297F4E), fontSize: 12)),
+                          ),
                       ],
                     )),
                 Text("+ Mais informações",

@@ -1,4 +1,5 @@
 import 'package:cultive/models/plant.dart';
+import 'package:cultive/models/plant_details.dart';
 import 'package:cultive/widgets/commons/custom_grid_list.dart';
 import 'package:cultive/widgets/plants/plant_avatar.dart';
 import 'package:flutter/material.dart';
@@ -6,8 +7,9 @@ import 'package:cultive/.env.dart' as env;
 
 class Overview extends StatelessWidget {
   final Plant plant;
+  final PlantDetails plantDetails;
 
-  const Overview(this.plant);
+  const Overview(this.plant, this.plantDetails);
 
   @override
   Widget build(BuildContext context) {
@@ -33,10 +35,7 @@ class Overview extends StatelessWidget {
                       Text("\u{2600} ${plant.lightness}",
                           style: TextStyle(
                               color: Color(0xff297F4E), fontSize: 12)),
-                      Text("\u{1F321} 20 - 25 º",
-                          style: TextStyle(
-                              color: Color(0xff297F4E), fontSize: 12)),
-                      Text("\u{1F4A7} Frequente",
+                      Text("\u{1F4A7} ${plant.wateringFrequencyHuman}",
                           style: TextStyle(
                               color: Color(0xff297F4E), fontSize: 12)),
                     ])),
@@ -92,9 +91,8 @@ class Overview extends StatelessWidget {
             _buildSection('Mais informações', plant.description),
             _buildSection('Observações', plant.comments),
             CustomGridList(
-                'Fertilizantes', ['Farinha de osso', 'Torta de mamona']),
-            CustomGridList('Melhores ambientes',
-                ['Garagem', 'Sala de estar', 'Locais fechados']),
+                'Fertilizantes', plantDetails?.fertilizers ?? []),
+            CustomGridList('Melhores ambientes', plantDetails?.environments ?? []),
           ],
         ),
       ),

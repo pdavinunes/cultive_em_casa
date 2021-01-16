@@ -52,12 +52,12 @@ class PlantCard extends StatelessWidget {
                                     color: Color(0xff297F4E), fontSize: 12)),
                           ),
                           FittedBox(
-                            child: Text("\u{1F321} 20 - 25 º",
+                            child: Text("\u{1FAB4} ${plant.popularName}",
                                 style: TextStyle(
                                     color: Color(0xff297F4E), fontSize: 12)),
                           ),
                           FittedBox(
-                            child: Text("\u{1F4A7} Frequente",
+                            child: Text("\u{1F4A7} ${plant.wateringFrequencyHumanShort}",
                                 style: TextStyle(
                                     color: Color(0xff297F4E), fontSize: 12)),
                           ),

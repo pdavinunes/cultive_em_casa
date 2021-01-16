@@ -1,8 +1,11 @@
 import 'package:cultive/models/plant.dart';
+import 'package:cultive/models/plant_details.dart';
+import 'package:cultive/services/plant_service.dart';
 import 'package:cultive/widgets/plants/action.dart';
 import 'package:cultive/widgets/plants/overview.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
+import 'package:provider/provider.dart';
 
 class PlantPage extends StatefulWidget {
   final Plant plant;
@@ -15,6 +18,22 @@ class PlantPage extends StatefulWidget {
 }
 
 class _PlantPageState extends State<PlantPage> {
+  PlantDetails _plantDetails;
+  PlantService _plantService;
+
+  Future<void> init() async {
+    _plantService = Provider.of<PlantService>(context, listen: false);  
+    _plantDetails = await _plantService.show(widget.plant.id.toString());
+
+    if (mounted) 
+      setState(() { });
+  }
+
+  @override
+  void initState() {
+    init();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +71,7 @@ class _PlantPageState extends State<PlantPage> {
                 Expanded(
                   child: Container(
                     child: TabBarView(children: [
-                      Overview(widget.plant),
+                      Overview(widget.plant, _plantDetails),
                       ActionPage(ActionPageTypes.Regar, widget.plant),
                       ActionPage(ActionPageTypes.Podar, widget.plant),
                       ActionPage(ActionPageTypes.Adubar, widget.plant),
@@ -65,10 +84,22 @@ class _PlantPageState extends State<PlantPage> {
 
   List<Widget> _buildTabs() {
     return [
-      Tab(child: FittedBox(child: Text('Geral', style: TextStyle(color: Color(0xff297F4E))))),
-      Tab(child: FittedBox(child: Text('Regar', style: TextStyle(color: Color(0xff297F4E))))),
-      Tab(child: FittedBox(child: Text('Podar', style: TextStyle(color: Color(0xff297F4E))))),
-      Tab(child: FittedBox(child: Text('Adubar', style: TextStyle(color: Color(0xff297F4E))))),
+      Tab(
+          child: FittedBox(
+              child:
+                  Text('Geral', style: TextStyle(color: Color(0xff297F4E))))),
+      Tab(
+          child: FittedBox(
+              child:
+                  Text('Regar', style: TextStyle(color: Color(0xff297F4E))))),
+      Tab(
+          child: FittedBox(
+              child:
+                  Text('Podar', style: TextStyle(color: Color(0xff297F4E))))),
+      Tab(
+          child: FittedBox(
+              child:
+                  Text('Adubar', style: TextStyle(color: Color(0xff297F4E))))),
     ];
   }
 }
